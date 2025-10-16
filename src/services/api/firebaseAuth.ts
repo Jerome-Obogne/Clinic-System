@@ -1,8 +1,14 @@
-import type { ApiResponse } from "@/model/api-common";
-import type { UserModel } from "@/model/User.model"
-import { AUTH } from "@/services/api/firebaseConfig"
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, type AuthError, type User } from "firebase/auth"
 
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  type AuthError,
+  type User,
+} from "firebase/auth";
+import { AUTH } from "@/services/api/firebaseConfig"
+import type { ApiResponse } from "@/model/api-common";
+import type { UserModel } from "@/model/User.model";
+import { getAuthMessage } from "@/utils/firebaseUtils";
 
 const registerUser = async (userData: UserModel): Promise<ApiResponse<User>> => {
   try {
@@ -11,7 +17,6 @@ const registerUser = async (userData: UserModel): Promise<ApiResponse<User>> => 
       userData.email,
       userData.password
     );
-
     return {
       success:true,
       data: response.user
@@ -27,9 +32,6 @@ const registerUser = async (userData: UserModel): Promise<ApiResponse<User>> => 
         }
     }
   }
-
-
-
 };
 
 const loginUser = async(userData: UserModel): Promise<ApiResponse<User>> => {
@@ -44,16 +46,17 @@ const loginUser = async(userData: UserModel): Promise<ApiResponse<User>> => {
     }
 
   } catch (error) {
-     const authError = error as AuthError
+     const {code,message} = error as AuthError  
     return {
-      success:false,
-      error:{ 
-        code: authError.code,
-        message: authError.message
-      }
-    }
+      success: false,
+      error: {
+        code: getAuthMessage(code),
+        message: message,
+      },
+    };
   }
 }
+
 export {
     registerUser,
     loginUser

@@ -1,16 +1,33 @@
 import {z} from 'zod'
 
 const User = z.object({
-    email : z.email(),
-    password : z.string().min(8,{error:'Password is too short'})
+    email : z.email().trim(),
+    password : z.string().trim().min(8,{error:'Password is too short'})
 })
 
+const Login = z.object({
+  email: z.email().trim(),
+  password: z.string().trim(),
+});
+
+type LoginModel = z.infer<typeof Login>
 type UserModel = z.infer<typeof User>
 
-const UserSchema: UserModel = {
+const UserDefault: UserModel = {
   email: '',
   password: '',
 };
+const LoginDefault: LoginModel = {
+  email: "",
+  password: "",
+};
 
-export { UserSchema, User };
-export type { UserModel };
+export { 
+  UserDefault, 
+  User, 
+  LoginDefault, 
+  Login };
+export type { 
+  UserModel, 
+  LoginModel 
+};

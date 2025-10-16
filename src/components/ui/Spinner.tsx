@@ -1,23 +1,19 @@
 import Lottie from "lottie-react";
 import Loading from "../../../public/image/Loading.json";
+import styles from '../../features/auth/style.module.css'
+
 
 interface SpinnerProps {
-    divHeight?: string,
     height: number,
-    width:number
+    width:number,
+    isDefault :boolean
 
 }
 
-const Spinner = ({divHeight,height,width}:SpinnerProps) => {
+
+const Spinner = ({height,width,isDefault}:SpinnerProps) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: `${divHeight || '100vh' } `, // full screen height
-      }}
-    >
+    <div className={isDefault ? styles.default  : styles.spinner}>
       <Lottie
         animationData={Loading}
         loop

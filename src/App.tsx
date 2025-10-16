@@ -1,5 +1,6 @@
 import './App.css'
 import {Route, Routes} from "react-router";
+import { ToastContainer } from "react-toastify";
 import Home from './pages/sections/Home';
 import NotFound from './pages/NotFound';
 import Login from './pages/auth/Login';
@@ -20,15 +21,14 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/register" element={<Register />} />
         </Route>
-        <Route path="/admin" element = {<ProtectedRoute />} >
-           <Route path="register" element={<Register />} />  
+        <Route path="/admin" element={<ProtectedRoute />}>
+          <Route path="register" element={<Register />} />
         </Route>
 
-     
         <Route path="/patient"></Route>
-
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <ToastContainer />
     </>
   );
 }

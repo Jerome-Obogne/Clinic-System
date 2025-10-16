@@ -1,5 +1,9 @@
 import React, { useState } from 'react'
-import { Visibility, VisibilityOff,Person, Widgets } from '@mui/icons-material';
+import { Link } from "react-router";
+import { useForm } from "react-hook-form";
+import useToastMessage from "@/hooks/useToastMessage";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Visibility, VisibilityOff,Person } from '@mui/icons-material';
 import {
   InputAdornment,
   InputLabel,
@@ -11,23 +15,17 @@ import {
   Grid,
 } from "@mui/material";
 import { MailOutlineOutlined, PermIdentityOutlined } from "@mui/icons-material";
-import Buttons from '@/components/ui/Buttons'; 
-import { Link } from 'react-router';
-import  {useForm} from 'react-hook-form'
-import { zodResolver } from "@hookform/resolvers/zod";
+import Spinner from '@/components/ui/Spinner';
+import Buttons from "@/components/ui/Buttons"; 
 import { Register, RegisterSchema, type RegisterModel } from '@/model/Register_Model';
 import { registerUser } from '@/services/api/firebaseAuth';
-import useToastMessage from '@/hooks/useToastMessage';
-import { ToastContainer } from 'react-toastify';
 import { addProfile } from '@/services/api/firebaseDb';
-import Spinner from '@/components/ui/Spinner';
 
 
 const RegisterForm = () => {
 
   const [showPassword,setShowPassword] = useState(false);
   const {ToastSuccess,ToastError} = useToastMessage();
-  const [loading,setLoading] = useState(false);
   const handleShowPassword = () => setShowPassword(showPassword => !showPassword)
   const handleMouseDownPassword = (event:React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
@@ -190,7 +188,7 @@ const RegisterForm = () => {
 
           <Grid size={{ xs: 12, sm: 12, md: 12, lg: 12 }}>
             {isSubmitting ? (
-              <Spinner divHeight="20vh" height={20} width={20} />
+              <Spinner isDefault={false} height={20} width={20} />
             ) : (
               <div className="text-center">
                 <Buttons
@@ -217,7 +215,6 @@ const RegisterForm = () => {
             )}
           </Grid>
         </Grid>
-        <ToastContainer />
       </form>
     </>
   );
