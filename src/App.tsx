@@ -21,11 +21,13 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/register" element={<Register />} />
         </Route>
+        
         <Route path="/admin" element={<ProtectedRoute />}>
           <Route path="register" element={<Register />} />
         </Route>
 
-        <Route path="/patient"></Route>
+        <Route path="/patient">
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer />

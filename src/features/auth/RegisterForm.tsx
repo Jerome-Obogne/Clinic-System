@@ -12,7 +12,7 @@ import {
   FormHelperText,
   OutlinedInput,
   TextField,
-  Grid,
+  Grid, 
 } from "@mui/material";
 import { MailOutlineOutlined, PermIdentityOutlined } from "@mui/icons-material";
 import Spinner from '@/components/ui/Spinner';
@@ -44,7 +44,7 @@ const RegisterForm = () => {
    try {
        const response = await registerUser({email:data.email,password:data.password});
        if (!response.success) {
-        ToastError(`Registration problem try again : ${response.error?.message}`);
+        ToastError(`Registration problem try again : ${response.error?.code}`);
         return
       }
        const addProfileResponse = await addProfile("Profiles", {
@@ -54,11 +54,10 @@ const RegisterForm = () => {
          role: "Patient",
        });
       if (!addProfileResponse.success && !addProfileResponse.data ) {
-        ToastError(`Profile creation fails, try again: ${response.error?.message}`);
+        ToastError(`Profile creation fails, try again: ${response.error?.code}`);
         return;  
       }
       ToastSuccess("Account created succesfully");
-
       reset();
      
    } catch (error) {

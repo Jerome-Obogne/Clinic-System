@@ -10,6 +10,7 @@ const Login = z.object({
   password: z.string().trim(),
 });
 
+
 type LoginModel = z.infer<typeof Login>
 type UserModel = z.infer<typeof User>
 

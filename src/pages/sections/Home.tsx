@@ -9,8 +9,7 @@ const Home = () => {
       <Containers maxWidth="lg">
         <HeroSection />
         <div className="mt-4">
-          <MainFeatureSection />
-          
+          <MainFeatureSection />     
         </div>
       </Containers>
     </>
