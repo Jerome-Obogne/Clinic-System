@@ -4,7 +4,7 @@ const MainFeatureSection = () => {
 
   return (
     <>
-      <main>
+      <main data-testid ={'main-feature-section'}>
         <Grid container spacing={2}>
           <Grid size={{ sm: 12, md: 6, lg: 6 }}>
             <section className="p-4">

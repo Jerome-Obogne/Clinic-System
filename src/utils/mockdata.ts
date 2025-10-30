@@ -17,6 +17,10 @@ const subFeatures = [
     description:
       "Same-day sick visits, extended hours, and convenient online booking ensure your child gets the care they need exactly when they need it most.",
   },
-];
 
-export { subFeatures };
+];
+ const loginData = {
+   email: "totol13717@dropeso.com",
+   password: "totol13717@dropeso.com",
+ };
+export { subFeatures, loginData };

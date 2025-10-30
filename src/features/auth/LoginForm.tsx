@@ -67,8 +67,9 @@ const LoginForm = () => {
               {...register("email")}
               id="outlined-basic"
               variant="outlined"
-              label="Username"
+              label="Email"
               size="small"
+              data-testid={"email-input"}
               error={errors.email && true}
               helperText={errors.email?.message}
             />
@@ -85,6 +86,7 @@ const LoginForm = () => {
                 Password
               </InputLabel>
               <OutlinedInput
+                data-testid="password-input"
                 {...register("password")}
                 id="outlined-adornment-password"
                 type={showPassword ? "text" : "password"}
@@ -129,7 +131,10 @@ const LoginForm = () => {
               <div className="font-bold mt-1.5 tracking-wide">
                 <p className="  text-[10px] text-gray-600/75">
                   Dont have an account?{" "}
-                  <Link to="/register" className="text-(--color-quarternary) ...">
+                  <Link
+                    to="/register"
+                    className="text-(--color-quarternary) ..."
+                  >
                     Sign Up
                   </Link>
                 </p>

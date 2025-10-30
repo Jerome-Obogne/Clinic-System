@@ -6,7 +6,10 @@ const HeroSection = () => {
       <Containers maxWidth="md">
         <section className="mt-30">
           <div className="text-black text-center ">
-            <h1 className="text-3xl md:text-4xl lg:text-[50px] md:leading-15 lg:leading-18 mb-3 font-semibold">
+            <h1
+              className="text-3xl md:text-4xl lg:text-[50px] md:leading-15 lg:leading-18 mb-3 font-semibold"
+              data-testid="heading-content"
+            >
               Where Every Visit Is A Step Toward A Brighter, Healthier Future
             </h1>
             <p className="font-medium tracking-wide text-gray-600">
