@@ -26,7 +26,8 @@
    "baseUrl": "src",  // this is key
     "paths": {
       "@/*": ["*"],
-      "@components/ui/*": ["components/ui/*"]
+      "@components/ui/*": ["components/ui/*"],
+      "@services/api/*": ["services/api/*"]
     }
   },
   "include": ["src"]

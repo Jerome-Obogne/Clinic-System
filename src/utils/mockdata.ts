@@ -1,3 +1,4 @@
+
 const subFeatures = [
   {
     id: 1,
@@ -23,4 +24,12 @@ const subFeatures = [
    email: "totol13717@dropeso.com",
    password: "totol13717@dropeso.com",
  };
-export { subFeatures, loginData };
+ const registerData = {
+   first_name: "JeromeObogne1",
+   last_name: "Ponze123231231sad",
+   email: "regdata@gmail.com",
+   password: "Jerome123@fasa;kl12asd",
+ };
+
+ const DRAWER_WIDTH  = 240; 
+export { subFeatures, loginData,registerData,DRAWER_WIDTH };

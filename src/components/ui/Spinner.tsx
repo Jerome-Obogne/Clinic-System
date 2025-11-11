@@ -13,7 +13,7 @@ interface SpinnerProps {
 
 const Spinner = ({height,width,isDefault}:SpinnerProps) => {
   return (
-    <div className={isDefault ? styles.default  : styles.spinner}>
+    <div className={isDefault ? styles.default  : styles.spinner} data-test-id= {'spinner'}>
       <Lottie
         animationData={Loading}
         loop

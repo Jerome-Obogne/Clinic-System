@@ -1,7 +1,7 @@
 import React from 'react'
 import Container from '@mui/material/Container';
 type ContainerProps = {
-    maxWidth: 'sm' | 'md' | 'lg'
+    maxWidth: 'sm' | 'md' | 'lg' | 'xl'
     paddingValue?: string
     children?: React.ReactNode
 }

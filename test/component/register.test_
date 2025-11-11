@@ -1,0 +1,77 @@
+import { vi } from "vitest";
+import "@testing-library/jest-dom";
+import { fireEvent, render,screen, waitFor } from "@testing-library/react";
+import * as authModule from "../../src/services/api/firebaseAuth";
+import {addProfile} from "../../src/services/api/firebaseDb";
+import RegisterForm  from '../../src/features/auth/RegisterForm'
+import userEvent from "@testing-library/user-event";
+import { registerData } from "../../src/utils/mockdata";
+import { ToastContainer } from "react-toastify";
+import { MemoryRouter } from "react-router";
+
+vi.mock("lottie-react", () => ({
+  default: () => <div data-testid="mock-lottie-data2" />,
+}));
+
+vi.mock("../../src/services/api/firebaseAuth", () => ({
+    registerUser: vi.fn(),
+}));
+
+vi.mock("../../src/services/api/firebaseDb", () => ({
+    addProfile: vi.fn(),
+}));
+
+describe('Registration Form',() => {
+
+    it('should render Register Form  actions',async () => {
+
+        vi.fn(authModule.registerUser).mockResolvedValue({
+          success: true,
+          data: { id: "test-uid-123" } as any,
+        });
+
+        render(
+            <>
+            <MemoryRouter>
+                <RegisterForm />
+                <ToastContainer />
+            </MemoryRouter>
+            </>
+        );
+
+        const firstNameInput = screen.getByLabelText(/firstname/i);
+        const lastNameInput = screen.getByLabelText(/surname/i)
+        const email = screen.getByLabelText(/email/i);
+        const passsword = screen.getByLabelText('Password', {selector:'input'})
+        const registerButton = screen.getByRole("button", {name: /create account/i});
+    
+
+        await userEvent.type(firstNameInput, registerData.first_name);
+        await userEvent.type(lastNameInput, registerData.last_name)
+        await userEvent.type(email, registerData.email);
+        await userEvent.type(passsword, registerData.password);
+        await userEvent.click(registerButton);
+     
+        await waitFor(() => {
+            expect(authModule.registerUser).toHaveBeenCalled();
+            expect(authModule.registerUser).toHaveBeenCalledWith({
+            email: registerData.email,
+            password: registerData.password,
+            });
+        });
+
+        // await waitFor(() => {
+        //     expect(addProfile).toHaveBeenCalled();
+        //     expect(addProfile).toHaveBeenCalledWith("Profiles", {
+        //     first_name: registerData.first_name,
+        //     last_name: registerData.last_name,
+        //     user_id: "test-uid-123",
+        //     role: "Patient",
+        //     });
+        // });
+        // const successNotif =  await screen.findByText(/Account created succesfully/i)
+        // expect(successNotif).toBeVisible()
+
+        })
+})
+

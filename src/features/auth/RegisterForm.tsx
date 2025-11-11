@@ -18,8 +18,8 @@ import { MailOutlineOutlined, PermIdentityOutlined } from "@mui/icons-material";
 import Spinner from '@/components/ui/Spinner';
 import Buttons from "@/components/ui/Buttons"; 
 import { Register, RegisterSchema, type RegisterModel } from '@/model/Register_Model';
-import { registerUser } from '@/services/api/firebaseAuth';
-import { addProfile } from '@/services/api/firebaseDb';
+import { registerUser } from "../../services/api/firebaseAuth";
+import { addProfile } from '../../services/api/firebaseDb';
 
 
 const RegisterForm = () => {
@@ -154,6 +154,7 @@ const RegisterForm = () => {
               </InputLabel>
               <OutlinedInput
                 {...register("password")}
+                data-testid="reg-pass-input"
                 id="outlined-adornment-password"
                 type={showPassword ? "text" : "password"}
                 endAdornment={
@@ -186,32 +187,30 @@ const RegisterForm = () => {
           </Grid>
 
           <Grid size={{ xs: 12, sm: 12, md: 12, lg: 12 }}>
-            {isSubmitting ? (
-              <Spinner isDefault={false} height={20} width={20} />
-            ) : (
-              <div className="text-center">
+            <div className="text-center">
+              {isSubmitting ? (
+                <Spinner isDefault={false} height={20} width={20} />
+              ) : (
                 <Buttons
                   type="submit"
                   variant="contained"
-                  size="medium"
                   isDisabled={isSubmitting}
+                  size="medium"
                   className="normal-case! w-full md:w-[300px] bg-[color:var(--color-quarternary)]!  hover:bg-black! hover:text-white! text-white!"
                 >
                   Create Account
                 </Buttons>
-                <div className="font-bold mt-1.5 tracking-wide">
-                  <p className="  text-[10px] text-gray-600/75">
-                    Already had an account?{" "}
-                    <Link
-                      to="/login"
-                      className="text-(--color-quarternary) ..."
-                    >
-                      Sign In
-                    </Link>
-                  </p>
-                </div>
+              
+              )}
+              <div className="font-bold mt-1.5 tracking-wide">
+                <p className="  text-[10px] text-gray-600/75">
+                  Already had an account?{" "}
+                  <Link to="/login" className="text-(--color-quarternary) ...">
+                    Sign In
+                  </Link>
+                </p>
               </div>
-            )}
+            </div>
           </Grid>
         </Grid>
       </form>

@@ -24,6 +24,7 @@ import {
   type LoginModel,
   type UserModel,
 } from "@/model/User.model";
+import WEB_ROUTES from '@/routes/routes';
 
 
 const LoginForm = () => {
@@ -51,7 +52,7 @@ const LoginForm = () => {
         return;
       } 
       ToastSuccess("Login Succesfully");
-      navigate("/admin/register");   
+      navigate(WEB_ROUTES.ADMIN.DOCTOR,{replace:true});   
   }
     
   return (
@@ -139,6 +140,7 @@ const LoginForm = () => {
                   </Link>
                 </p>
               </div>
+              
             </div>
           </Grid>
         </Grid>

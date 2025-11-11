@@ -16,7 +16,7 @@ const Buttons = (props: BtnProps) => {
   return (
     <>
       <Button
-      type={props.type || 'button'}
+        type={props.type || "button"}
         disabled={props.isDisabled}
         className={props.className}
         size={props.size || "small"}
@@ -27,6 +27,7 @@ const Buttons = (props: BtnProps) => {
             color: "black",
           },
         }}
+        data-testid="datad"
       >
         {props.icon}
         {props.children}
