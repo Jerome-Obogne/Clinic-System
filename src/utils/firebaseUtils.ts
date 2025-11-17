@@ -5,9 +5,7 @@ import {
 } from "firebase/firestore";
 import { DB } from "@/services/api/firebaseConfig";
 
-const getCollectionRef = <T = DocumentData>(
-  collectionName: string
-): CollectionReference<T> => {
+const getCollectionRef = <T = DocumentData>(collectionName: string): CollectionReference<T> => {
   return collection(DB, collectionName) as CollectionReference<T>;
 };
 

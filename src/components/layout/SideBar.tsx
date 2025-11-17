@@ -2,8 +2,6 @@ import React, { memo, useCallback } from 'react'
 import { styled, useTheme, type CSSObject, type Theme, } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
-import MuiAppBar from "@mui/material/AppBar";
-import type { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
@@ -18,6 +16,7 @@ import { Link, useLocation } from 'react-router';
 import type { SideBarModel } from '@/model/Sidebar.model';
 import NavBar from './NavBar';
 import { DRAWER_WIDTH } from '@/utils/mockdata';
+import useAuthLogout from '@/hooks/useLogout';
 
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -41,13 +40,13 @@ const closedMixin = (theme: Theme): CSSObject => ({
   },
 });
 
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-end",
-  padding: theme.spacing(0, 0),
-  ...theme.mixins.toolbar,
-}));
+// const DrawerHeader = styled("div")(({ theme }) => ({
+//   display: "flex",
+//   alignItems: "center",
+//   justifyContent: "flex-end",
+//   padding: theme.spacing(0, 0),
+//   ...theme.mixins.toolbar,
+// }));
 
 
 const Drawer = styled(MuiDrawer, {
@@ -78,10 +77,13 @@ const SideBar = ({ sideBarList ,userType ,children }: SideBarModel) => {
 
   const theme = useTheme();
   const {pathname} = useLocation()
- 
+  const {authLogout} = useAuthLogout()
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = useCallback(() => {setOpen(true)},[]);
   const handleDrawerClose = () => { setOpen(false)};
+  const handleLogout = useCallback(() => {
+    authLogout()
+  },[])
 
   const sideBarData = sideBarList[userType]
 
@@ -90,7 +92,7 @@ const SideBar = ({ sideBarList ,userType ,children }: SideBarModel) => {
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         {
-          <NavBar open = {open} handleDrawer={handleDrawerOpen}/>
+          <NavBar open = {open} handleDrawer={handleDrawerOpen} handleLogout={handleLogout}/>
         }
         <Drawer variant="permanent" open={open}>
           <IconButton onClick={handleDrawerClose}>
