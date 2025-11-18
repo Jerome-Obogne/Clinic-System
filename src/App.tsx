@@ -12,12 +12,13 @@ import About from './pages/About';
 import DoctorLayout from './features/layout/DoctorLayout';
 import WEB_ROUTES from './routes/routes';
 import PatientLayout from './features/layout/PatientLayout';
+import Appointment from './features/patient/AppointmentForm';
 function App() {
 
   return (
     <>
       <Routes>   
-        <Route element={<ProtectedRoute />}>
+        <Route element={<ProtectedRoute roles = {'admin'} />}>
           <Route path={WEB_ROUTES.ADMIN.DOCTOR} element={<DoctorLayout />}>
             <Route index element={<About />} />
             <Route
@@ -27,9 +28,10 @@ function App() {
           </Route>
         </Route>
 
-        <Route element={<ProtectedRoute />}>
+        <Route element={<ProtectedRoute roles={'patient'} />}>
           <Route path={WEB_ROUTES.PATIENT.DASHBOARD} element={<PatientLayout />}>
             <Route index element={<About />} />
+            <Route path={WEB_ROUTES.PATIENT.APPOINTMENT} element= {<Appointment/>}/>
           </Route>
         </Route>
 

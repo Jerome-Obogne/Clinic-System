@@ -6,9 +6,8 @@ import { styled } from '@mui/material/styles';
 import { IconButton, MenuItem, Select, Toolbar, Tooltip, Typography } from '@mui/material';
 import MenuIcon from "@mui/icons-material/Menu";
 import { DRAWER_WIDTH } from "@/utils/mockdata";
-import { AuthContext } from "@/services/state/context/authContext";
 import ProfileAvatar from "../ui/ProfileAvatar";
-
+import { AuthContext } from "@/services/state/context/authContext";
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
@@ -47,7 +46,6 @@ const AppBar = styled(MuiAppBar, {
 
 const NavBar = ({open,handleDrawer,handleLogout}: NavBarProp) => {
   const auth = useContext(AuthContext)
-  
   return (
     <>
       {

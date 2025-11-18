@@ -7,20 +7,17 @@ const Register = User.extend({
     last_name : Profiles.shape.last_name,
 })
 
-
-
-
 type RegisterModel = z.infer<typeof Register>;
-const RegisterSchema:RegisterModel = {
-    email:'',
-    password:'',
-    first_name:'',
-    last_name: '',
+// const RegisterSchema:RegisterModel = {
+//     email:'',
+//     password:'',
+//     first_name:'',
+//     last_name: '',
    
-}
+// }
 
 export {
-    RegisterSchema,
+    // RegisterSchema,
     Register,
 }
 export type {

@@ -6,6 +6,7 @@ import {
   PersonalInjury,
   ContactMail,
   DataExploration,
+  CalendarMonth,
 } from "@mui/icons-material";
 
 const SideBarList = {
@@ -50,11 +51,12 @@ const SideBarList = {
   ],
   Patient: [
     {
-      id: 7,
-      title: "Accounts",
-      routes: WEB_ROUTES.AUTH.SIGNUP,
-      icon: <ContactMail />,
+      id: 8,
+      title: "Appointment",
+      routes: WEB_ROUTES.PATIENT.APPOINTMENT,
+      icon: <CalendarMonth />,
     },
+    
   ],
 };
 

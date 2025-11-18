@@ -19,12 +19,11 @@ import Buttons from '@/components/ui/Buttons';
 import { loginUser } from '@/services/api/firebaseAuth';
 import Spinner from '@/components/ui/Spinner';
 import {
-  LoginDefault,
   Login,
   type LoginModel,
   type UserModel,
 } from "@/model/User.model";
-import WEB_ROUTES from '@/routes/routes';
+import { getQueryProfile } from '@/services/state/context/authContext';
 
 
 const LoginForm = () => {
@@ -41,18 +40,22 @@ const LoginForm = () => {
    handleSubmit,
    formState: { errors, isSubmitting },
  } = useForm<LoginModel>({
-   defaultValues: LoginDefault,
    resolver: zodResolver(Login),
  });
   
-  const handleSignIn = async(data:UserModel) => {
-    const {success,error} = await loginUser(data);
+  const handleSignIn = async(record:UserModel) => {
+    const { success, error,data } = await loginUser(record);
       if (!success) {
         ToastError(`${error?.code}`);
         return;
       } 
-      ToastSuccess("Login Succesfully");
-      navigate(WEB_ROUTES.ADMIN.DOCTOR,{replace:true});   
+      const {role} = await getQueryProfile(data?.uid)
+      if (!role) {
+         ToastError("Something went wrong please try again");
+      }
+       ToastSuccess("Login Succesfully");
+       navigate(`/${role.toLowerCase()}`, { replace: true });   
+     
   }
     
   return (

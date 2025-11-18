@@ -17,7 +17,7 @@ import {
 import { MailOutlineOutlined, PermIdentityOutlined } from "@mui/icons-material";
 import Spinner from '@/components/ui/Spinner';
 import Buttons from "@/components/ui/Buttons"; 
-import { Register, RegisterSchema, type RegisterModel } from '@/model/Register_Model';
+import { Register, type RegisterModel } from '@/model/Register_Model';
 import { registerUser } from "../../services/api/firebaseAuth";
 import { addProfile } from '../../services/api/firebaseDb';
 
@@ -36,7 +36,6 @@ const RegisterForm = () => {
     reset,
     formState: { errors, isSubmitting },
   } = useForm<RegisterModel>({
-      defaultValues: RegisterSchema,
       resolver: zodResolver(Register),
   });
  

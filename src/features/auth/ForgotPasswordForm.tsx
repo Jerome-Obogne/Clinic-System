@@ -21,9 +21,6 @@ const ForgotPasswordForm = () => {
     handleSubmit,
     formState:{errors,isSubmitting},
   } = useForm<AuthModel>({
-    defaultValues:{
-      email:''
-    },
     resolver: zodResolver(authEmail)
   });
 

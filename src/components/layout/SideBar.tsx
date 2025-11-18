@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react'
+import React, { memo, useCallback, useMemo } from 'react'
 import { styled, useTheme, type CSSObject, type Theme, } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -85,7 +85,7 @@ const SideBar = ({ sideBarList ,userType ,children }: SideBarModel) => {
     authLogout()
   },[])
 
-  const sideBarData = sideBarList[userType]
+  const sideBarData = useMemo( ()=> sideBarList[userType],[userType])
 
   return (
     <>
@@ -162,7 +162,7 @@ const SideBar = ({ sideBarList ,userType ,children }: SideBarModel) => {
             </List>
           <Divider />
         </Drawer>
-          <div className="mt-20 p-8">{children}</div>
+          <div className="mt-20 p-8 h-screen w-full md:max-w-[900px]">{children}</div>
       </Box>
     </>
   );
