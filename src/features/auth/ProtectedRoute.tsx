@@ -1,10 +1,9 @@
-import { useContext } from "react";
 import { Outlet, Navigate } from "react-router";
 import Spinner from "@/components/ui/Spinner";
-import { AuthContext } from "@/services/state/context/authContext";
+import {useAuthContext } from "@/services/state/context/authContext";
 
 const ProtectedRoute = ({roles} : {roles:string}) => {
-  const auth = useContext(AuthContext);
+  const auth = useAuthContext()
 
   if (auth?.loading ) {
     return <Spinner isDefault height={300} width={300} />;

@@ -1,4 +1,4 @@
-import { createContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { AUTH } from "@/services/api/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 import { getCollectionRef } from "@/utils/firebaseUtils";
@@ -7,6 +7,7 @@ import type { ProfileModel } from "@/model/Profile.model";
 import { AuthDataQuery, AuthDefaultSchema,  type AuthData, type AuthProps } from "@/model/Auth-Context.model";
 
 export const AuthContext = createContext<AuthProps | undefined>(undefined);
+export const useAuthContext = () => useContext(AuthContext)
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [auth, setAuth] = useState<AuthData>(AuthDefaultSchema);

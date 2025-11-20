@@ -13,8 +13,8 @@ import DoctorLayout from './features/layout/DoctorLayout';
 import WEB_ROUTES from './routes/routes';
 import PatientLayout from './features/layout/PatientLayout';
 import Appointment from './features/patient/AppointmentForm';
-function App() {
 
+function App() {
   return (
     <>
       <Routes>   

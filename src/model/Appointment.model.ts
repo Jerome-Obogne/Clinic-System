@@ -3,7 +3,7 @@ import z from "zod";
 
 const Appointment = z.object({
   id: z.string().optional(),
-  user_id: z.string(),
+  user_id: z.string().optional(),
   name: z.string().min(2, { error: "Name must be atleast 2 characters" }),
   guardian_name: z.string().min(2, { error: "Guardian name must be atleast 2 characters" }),
   contact_no: z.string(),
@@ -16,17 +16,11 @@ const Appointment = z.object({
 });
 
 const parseAppointmentSchema = z.object({
-    
+
 })
 
-type AppointmentSchema = z.infer<typeof Appointment>
-
-
-
-
+type AppointmentModel = z.infer<typeof Appointment>
 
 
 export { Appointment, parseAppointmentSchema };
-export type {
-    AppointmentSchema
-}
+export type { AppointmentModel };
