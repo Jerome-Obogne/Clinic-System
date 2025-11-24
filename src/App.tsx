@@ -12,7 +12,7 @@ import About from './pages/About';
 import DoctorLayout from './features/layout/DoctorLayout';
 import WEB_ROUTES from './routes/routes';
 import PatientLayout from './features/layout/PatientLayout';
-import Appointment from './features/patient/AppointmentForm';
+import Appointment from './features/patient/AppointmentForm/AppointmentForm';
 
 function App() {
   return (

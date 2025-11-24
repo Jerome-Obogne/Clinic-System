@@ -1,4 +1,4 @@
-import AppointmentForm from '@/features/patient/AppointmentForm'
+import AppointmentForm from '@/features/patient/AppointmentForm/AppointmentForm'
 
 const Appointment = () => {
   return (

@@ -54,6 +54,8 @@ const getSingleDoc = async<T>(dbName: string , id:string ): Promise<ApiResponse<
   }
 
 }
+
+
 export {
     addProfile,
     getSingleDoc

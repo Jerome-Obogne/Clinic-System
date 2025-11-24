@@ -24,6 +24,7 @@ import {
   type UserModel,
 } from "@/model/User.model";
 import { getQueryProfile } from '@/services/state/context/authContext';
+import ButtonSubmission from '@/components/ui/ButtonSubmission';
 
 
 const LoginForm = () => {
@@ -118,10 +119,10 @@ const LoginForm = () => {
 
           <Grid size={{ xs: 12, sm: 12, md: 12, lg: 12 }}>
             <div className="text-center">
-              {isSubmitting ? (
-                <Spinner isDefault={false} height={20} width={20} />
-              ) : (
-                <Buttons
+              <ButtonSubmission
+                isSubmitting={isSubmitting}
+                children={
+                  <Buttons
                   type="submit"
                   isDisabled={isSubmitting}
                   variant="contained"
@@ -130,8 +131,8 @@ const LoginForm = () => {
                 >
                   Sign In Account
                 </Buttons>
-              )}
-
+                }
+              />
               <div className="font-bold mt-1.5 tracking-wide">
                 <p className="  text-[10px] text-gray-600/75">
                   Dont have an account?{" "}
@@ -143,7 +144,6 @@ const LoginForm = () => {
                   </Link>
                 </p>
               </div>
-              
             </div>
           </Grid>
         </Grid>

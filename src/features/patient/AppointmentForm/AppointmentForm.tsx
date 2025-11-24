@@ -5,34 +5,52 @@ import { useForm,Controller } from 'react-hook-form';
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Appointment, type AppointmentModel } from '@/model/Appointment.model';
+import { Appointment, type AppointmentModel,type parseAppointmentModel,parseAppointmentSchema } from '@/model/Appointment.model';
 import dayjs from 'dayjs';
 import { convertDateTimeString } from '@/utils/utilities';
-const AppointmentForm = () => {
-  
+import { MuiPhone } from './MuiPhoneInput';
+import useToastMessage from '@/hooks/useToastMessage';
+import { addProfile } from '@/services/api/firebaseDb';
+import { useAuthContext } from '@/services/state/context/authContext';
+import ButtonSubmission from '@/components/ui/ButtonSubmission';
 
+const AppointmentForm = () => {
+ const {ToastError,ToastSuccess} = useToastMessage()
+ const authContext = useAuthContext()
  const {
    register,
    control,
    handleSubmit,
    reset,
-   formState: { errors },
+   formState: { errors,isSubmitting },
  } = useForm<AppointmentModel>({
    defaultValues: {
      date: dayjs().format("MM/DD/YYYY"),
      time: dayjs().format("hh:mm:A"),
-     created_at: "",
-     update_at: "",
+     created_at: new Date().toISOString(),
+     update_at: new Date().toISOString(),
+     status:'N'
    },
    resolver: zodResolver(Appointment),
  });
  console.log("Form errors:", errors);
 
- const handleAddAppoint = async(data: AppointmentModel) => {
-   console.log("DATA >>>", data);
+ const handleAddAppointment = async(data: AppointmentModel) => {
+   const updateData = { ...data, user_id: authContext?.user?.uid};
+   const parseRecord = parseAppointmentSchema.safeParse(updateData);
+   if (!parseRecord.success) {
+     ToastError("Problem with parsing data. Please try again");
+     return;
+   }
+   const {success,error} = await addProfile<parseAppointmentModel>("Appointment",parseRecord.data);
+   if(!success){
+    ToastError(`${error?.code}`)
+    return;
+   }
+   ToastSuccess('You have succesfully add appointment')
    reset();
- };
 
+ };
   return (
     <>
       <div className="">
@@ -40,7 +58,7 @@ const AppointmentForm = () => {
           <h1 className="mb-8 text-sm md:text-4xl">Appointment Form</h1>
         </Box>
         <div className="mt-2 ">
-          <form onSubmit={handleSubmit(handleAddAppoint)}>
+          <form onSubmit={handleSubmit(handleAddAppointment)}>
             <Grid container spacing={2} justifyContent={"space-between"}>
               <Grid size={{ xs: 12, sm: 12, md: 6, lg: 6 }}>
                 <Controller
@@ -61,7 +79,9 @@ const AppointmentForm = () => {
                         label="Appointment Date"
                         value={dayjs(value, "MM/DD/YYYY")}
                         onChange={(newValue) => {
-                          onChange(convertDateTimeString(newValue,'MM/DD/YYYY'));
+                          onChange(
+                            convertDateTimeString(newValue, "MM/DD/YYYY")
+                          );
                         }}
                       />
                     </>
@@ -88,7 +108,7 @@ const AppointmentForm = () => {
                         label="Time"
                         value={dayjs(value, "hh:mm:A")}
                         onChange={(timeValue) => {
-                          onChange(convertDateTimeString(timeValue,'hh:mm:A'));
+                          onChange(convertDateTimeString(timeValue, "hh:mm:A"));
                         }}
                       />
                     </>
@@ -121,14 +141,19 @@ const AppointmentForm = () => {
               </Grid>
 
               <Grid size={{ xs: 12, sm: 12, md: 12, lg: 12 }}>
-                <TextField
-                  {...register("contact_no")}
-                  id="phone_outline"
-                  label="Phone Number"
-                  variant="outlined"
-                  fullWidth
-                  error={errors.contact_no && true}
-                  helperText={errors.contact_no?.message}
+                <Controller
+                  control={control}
+                  name="contact_no"
+                  render={({ field: { value, onChange } }) => (
+                    <>
+                      <MuiPhone
+                        value={value}
+                        onChange={onChange}
+                        errorData={errors.contact_no}
+                        helperMessage={errors.contact_no?.message}
+                      />
+                    </>
+                  )}
                 />
               </Grid>
 
@@ -150,14 +175,19 @@ const AppointmentForm = () => {
                 size={{ xs: 6, sm: 12, md: 12, lg: 12 }}
                 sx={{ mt: "10px" }}
               >
-                <Buttons
-                  type="submit"
-                  variant="contained"
-                  className="!p-[8px] normal-case! w-full md:w-[250px] bg-[color:var(--color-quarternary)]! hover:bg-black! hover:text-white! text-white!"
-                  size="large"
-                >
-                  BOOK NOW
-                </Buttons>
+                <ButtonSubmission
+                  isSubmitting={isSubmitting}
+                  children={
+                    <Buttons
+                      type="submit"
+                      variant="contained"
+                      className="!p-[8px] normal-case! w-full md:w-[250px] bg-[color:var(--color-quarternary)]! hover:bg-black! hover:text-white! text-white!"
+                      size="large"
+                    >
+                      BOOK NOW
+                    </Buttons>
+                  }
+                />
               </Grid>
             </Grid>
           </form>
