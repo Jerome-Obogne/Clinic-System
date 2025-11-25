@@ -37,18 +37,20 @@ const AppointmentForm = () => {
 
  const handleAddAppointment = async(data: AppointmentModel) => {
    const updateData = { ...data, user_id: authContext?.user?.uid};
+   console.log('update>>>>',updateData)
    const parseRecord = parseAppointmentSchema.safeParse(updateData);
-   if (!parseRecord.success) {
-     ToastError("Problem with parsing data. Please try again");
-     return;
-   }
+    if (!parseRecord.success) {
+      ToastError("Problem with parsing data. Please try again");
+      return;
+    }
+    console.log("DATA>>>>.",parseRecord.data)
    const {success,error} = await addProfile<parseAppointmentModel>("Appointment",parseRecord.data);
-   if(!success){
-    ToastError(`${error?.code}`)
-    return;
-   }
-   ToastSuccess('You have succesfully add appointment')
-   reset();
+    if(!success){
+      ToastError(`${error?.code}`)
+      return;
+    }
+    ToastSuccess('You have succesfully add appointment')
+    reset();
 
  };
   return (
@@ -83,6 +85,13 @@ const AppointmentForm = () => {
                             convertDateTimeString(newValue, "MM/DD/YYYY")
                           );
                         }}
+                        slotProps={{
+                          textField: {
+                            inputProps: {
+                              "data-testid": "appointment_date",
+                            },
+                          },
+                        }}
                       />
                     </>
                   )}
@@ -110,6 +119,13 @@ const AppointmentForm = () => {
                         onChange={(timeValue) => {
                           onChange(convertDateTimeString(timeValue, "hh:mm:A"));
                         }}
+                        slotProps={{
+                          textField: {
+                            inputProps: {
+                              "data-testid": "time",
+                            },
+                          },
+                        }}
                       />
                     </>
                   )}
@@ -119,7 +135,7 @@ const AppointmentForm = () => {
               <Grid size={{ xs: 12, sm: 12, md: 6, lg: 6 }}>
                 <TextField
                   {...register("name")}
-                  id="patient_outline"
+                  data-testid="patient_outline"
                   label="Patient Name"
                   variant="outlined"
                   fullWidth
@@ -131,7 +147,7 @@ const AppointmentForm = () => {
               <Grid size={{ xs: 12, sm: 12, md: 6, lg: 6 }}>
                 <TextField
                   {...register("guardian_name")}
-                  id="guardian_outline"
+                  data-testid="guardian_outline"
                   label="Guardian Name"
                   variant="outlined"
                   fullWidth
@@ -147,6 +163,7 @@ const AppointmentForm = () => {
                   render={({ field: { value, onChange } }) => (
                     <>
                       <MuiPhone
+                        
                         value={value}
                         onChange={onChange}
                         errorData={errors.contact_no}
@@ -160,7 +177,7 @@ const AppointmentForm = () => {
               <Grid size={{ xs: 12, sm: 12, md: 12, lg: 12 }}>
                 <TextField
                   {...register("concerns")}
-                  id="concerns_outline"
+                  data-testid="concerns_outline"
                   label="Enter your appointment reason"
                   variant="outlined"
                   error={errors.concerns && true}

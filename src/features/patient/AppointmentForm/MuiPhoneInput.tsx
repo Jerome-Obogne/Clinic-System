@@ -54,7 +54,7 @@ export const MuiPhone: React.FC<MUIPhoneProps> = ({
     <TextField
       fullWidth
       variant="outlined"
-      label="contact_no"
+      data-testid="contact_no"
       id="contact_no_outline"
       color="primary"
       placeholder="Phone number"
