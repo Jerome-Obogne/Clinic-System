@@ -7,6 +7,7 @@ import {
   ContactMail,
   DataExploration,
   CalendarMonth,
+  ContactPage,
 } from "@mui/icons-material";
 
 const SideBarList = {
@@ -56,7 +57,12 @@ const SideBarList = {
       routes: WEB_ROUTES.PATIENT.APPOINTMENT,
       icon: <CalendarMonth />,
     },
-    
+    {
+      id: 9,
+      title: "Contacts",
+      routes: WEB_ROUTES.PATIENT.CONTACTS,
+      icon: <ContactPage />,
+    },
   ],
 };
 

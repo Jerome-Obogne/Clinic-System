@@ -6,7 +6,7 @@ const phRegexNumber = /^\+63(?:9\d{9}|2\d{8}|[3-8]\d{8})$/;
 const validationMsg  ={
   name: "Name must be atleast 2 characters",
   guardian_name : "Guardian name must be atleast 2 character",
-  contact_no : "The number you entered is not valid. Please try agai"
+  contact_no : "The number you entered is not valid. Please try again"
 }
 
 const Appointment = z.object({
@@ -61,6 +61,19 @@ const parseAppointmentSchema = z.object({
 
 type AppointmentModel = z.infer<typeof Appointment>
 type parseAppointmentModel = z.infer<typeof parseAppointmentSchema>
+const defaultAppointment: AppointmentModel = {
+  id: "", // optional → default empty string
+  user_id: "", // optional → default empty string
+  name: "", // required → must be set later
+  guardian_name: "", // required → must be set later
+  contact_no: "", // required → must be set later
+  concerns: "", // optional → default empty string
+  date: "", // required → must be set later
+  time: "", // required → must be set later
+  status: "", // optional → default empty string
+  created_at: new Date().toISOString(), // sensible default
+  update_at: new Date().toISOString(), // sensible default
+};
 
-export { Appointment, parseAppointmentSchema };
+export { Appointment, parseAppointmentSchema,defaultAppointment };
 export type { AppointmentModel, parseAppointmentModel };

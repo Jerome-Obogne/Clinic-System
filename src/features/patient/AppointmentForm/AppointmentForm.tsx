@@ -1,11 +1,11 @@
 import Buttons from '@/components/ui/Buttons';
 import { Box, Grid, TextField } from '@mui/material'
-import { memo } from 'react';
+import { useCallback, useState } from 'react';
 import { useForm,Controller } from 'react-hook-form';
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Appointment, type AppointmentModel,type parseAppointmentModel,parseAppointmentSchema } from '@/model/Appointment.model';
+import { Appointment, type AppointmentModel,type parseAppointmentModel,parseAppointmentSchema,defaultAppointment } from '@/model/Appointment.model';
 import dayjs from 'dayjs';
 import { convertDateTimeString } from '@/utils/utilities';
 import { MuiPhone } from './MuiPhoneInput';
@@ -13,10 +13,14 @@ import useToastMessage from '@/hooks/useToastMessage';
 import { addProfile } from '@/services/api/firebaseDb';
 import { useAuthContext } from '@/services/state/context/authContext';
 import ButtonSubmission from '@/components/ui/ButtonSubmission';
+import BaseModal from '@/components/ui/BaseModal';
+import ConfirmAppointment from './ConfirmAppointment';
 
 const AppointmentForm = () => {
  const {ToastError,ToastSuccess} = useToastMessage()
- const authContext = useAuthContext()
+ const authContext = useAuthContext();
+ const [isOpen,setIsOpen] = useState(false);
+ const [formData, setFormData] = useState<AppointmentModel>(defaultAppointment);
  const {
    register,
    control,
@@ -33,26 +37,35 @@ const AppointmentForm = () => {
    },
    resolver: zodResolver(Appointment),
  });
- console.log("Form errors:", errors);
 
  const handleAddAppointment = async(data: AppointmentModel) => {
-   const updateData = { ...data, user_id: authContext?.user?.uid};
-   console.log('update>>>>',updateData)
-   const parseRecord = parseAppointmentSchema.safeParse(updateData);
-    if (!parseRecord.success) {
-      ToastError("Problem with parsing data. Please try again");
-      return;
-    }
-    console.log("DATA>>>>.",parseRecord.data)
-   const {success,error} = await addProfile<parseAppointmentModel>("Appointment",parseRecord.data);
-    if(!success){
-      ToastError(`${error?.code}`)
-      return;
-    }
-    ToastSuccess('You have succesfully add appointment')
-    reset();
 
+   setIsOpen(!isOpen);
+   setFormData({...data, user_id:authContext?.user?.uid});
+   
  };
+ 
+ const handleConfirmAddAppointment = useCallback(async () => {
+     const parseRecord = parseAppointmentSchema.safeParse(formData);
+     if (!parseRecord.success) {
+       ToastError("Problem with parsing data. Please try again");
+       return;
+     }
+
+     const { success, error } = await addProfile<parseAppointmentModel>("Appointment", parseRecord.data);
+     if (!success) {
+       ToastError(`${error?.code}`);
+       return;
+     }
+     ToastSuccess("You have succesfully add appointment");
+     reset();
+     setIsOpen(false)
+ },[formData,ToastError,reset,ToastSuccess])
+
+  const handleClose = useCallback(() => {
+    setIsOpen((prevOpen) => !prevOpen);
+  }, []);
+
   return (
     <>
       <div className="">
@@ -62,6 +75,7 @@ const AppointmentForm = () => {
         <div className="mt-2 ">
           <form onSubmit={handleSubmit(handleAddAppointment)}>
             <Grid container spacing={2} justifyContent={"space-between"}>
+
               <Grid size={{ xs: 12, sm: 12, md: 6, lg: 6 }}>
                 <Controller
                   control={control}
@@ -163,7 +177,6 @@ const AppointmentForm = () => {
                   render={({ field: { value, onChange } }) => (
                     <>
                       <MuiPhone
-                        
                         value={value}
                         onChange={onChange}
                         errorData={errors.contact_no}
@@ -206,12 +219,19 @@ const AppointmentForm = () => {
                   }
                 />
               </Grid>
+
             </Grid>
           </form>
+
+          <BaseModal open={isOpen} handleClose={handleClose}>
+           <ConfirmAppointment
+              onSubmit={handleConfirmAddAppointment} 
+              data={formData}/>
+          </BaseModal>
         </div>
       </div>
     </>
   );
 };
 
-export default memo(AppointmentForm)
+export default AppointmentForm

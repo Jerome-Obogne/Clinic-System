@@ -16,7 +16,8 @@ const WEB_ROUTES = {
     },
     PATIENT: {
         DASHBOARD: appendPrefix('patient'),
-        APPOINTMENT: appendPatientPrefix('appointment')
+        APPOINTMENT: appendPatientPrefix('appointment'),
+        CONTACTS: appendPatientPrefix('contact')
     }
 } as const
 

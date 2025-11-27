@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
 import {addProfile} from '../../src/services/api/firebaseDb'
@@ -16,7 +16,6 @@ vi.mock("lottie-react", () => ({
 vi.mock('../../src/services/api/firebaseDb', () => ({
     addProfile: vi.fn(),
 }));
-// Mock MUI Input
 vi.mock("../../src/features/patient/AppointmentForm/MuiPhoneInput", () => ({
   MuiPhone: ({ value, onChange, ...props }: any) => {
     return (

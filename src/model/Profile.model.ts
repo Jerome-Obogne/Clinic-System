@@ -11,7 +11,7 @@ const Profiles = z.object({
   address: z.string().min(4, { error: "Provide a valid address" }),
   contact_no: z.number(),
   role: z.string(),
-  gender: z.string(),
+  gender: z.string()
 });
 
 type ProfileModel = z.infer<typeof Profiles>
