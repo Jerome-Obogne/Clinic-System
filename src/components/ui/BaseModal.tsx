@@ -6,11 +6,12 @@ import { ModalClose ,ModalDialog } from "@mui/joy";
 type ModalProps ={
     open: boolean,
     handleClose: () => void,
-    children: React.ReactNode
+    children: React.ReactNode,
+    className?:string 
 
 }
 
-const BaseModal = ({open,handleClose,children}: ModalProps) => {
+const BaseModal = ({open,handleClose,children,className}: ModalProps) => {
   return (
     <>
       <Modal
@@ -22,14 +23,17 @@ const BaseModal = ({open,handleClose,children}: ModalProps) => {
         <ModalDialog
           aria-labelledby="basic-modal-dialog-title"
           aria-describedby="basic-modal-dialog-description"
+          // className="bg-[var(--color-quarternary)]"
           sx={{
             minWidth: {
-              xs: "100vw",
-              sm: "100vw",
+              xs: "80vw",
+              sm: "80vw",
               md: "30vw",
               lg: "30vw",
             },
+            background: `${className}` || '',
             overflow: "auto",
+            padding:0
           }}
         >
           <ModalClose />

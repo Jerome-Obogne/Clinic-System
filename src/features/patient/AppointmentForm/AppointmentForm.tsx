@@ -12,7 +12,6 @@ import { MuiPhone } from './MuiPhoneInput';
 import useToastMessage from '@/hooks/useToastMessage';
 import { addProfile } from '@/services/api/firebaseDb';
 import { useAuthContext } from '@/services/state/context/authContext';
-import ButtonSubmission from '@/components/ui/ButtonSubmission';
 import BaseModal from '@/components/ui/BaseModal';
 import ConfirmAppointment from './ConfirmAppointment';
 
@@ -21,12 +20,13 @@ const AppointmentForm = () => {
  const authContext = useAuthContext();
  const [isOpen,setIsOpen] = useState(false);
  const [formData, setFormData] = useState<AppointmentModel>(defaultAppointment);
+ const [isSubmitting, setIsSubmitting] = useState(false)
  const {
    register,
    control,
    handleSubmit,
    reset,
-   formState: { errors,isSubmitting },
+   formState: { errors },
  } = useForm<AppointmentModel>({
    defaultValues: {
      date: dayjs().format("MM/DD/YYYY"),
@@ -39,7 +39,6 @@ const AppointmentForm = () => {
  });
 
  const handleAddAppointment = async(data: AppointmentModel) => {
-
    setIsOpen(!isOpen);
    setFormData({...data, user_id:authContext?.user?.uid});
    
@@ -51,15 +50,17 @@ const AppointmentForm = () => {
        ToastError("Problem with parsing data. Please try again");
        return;
      }
-
+     setIsSubmitting(true)
      const { success, error } = await addProfile<parseAppointmentModel>("Appointment", parseRecord.data);
      if (!success) {
        ToastError(`${error?.code}`);
+       setIsSubmitting(false)
        return;
      }
      ToastSuccess("You have succesfully add appointment");
      reset();
      setIsOpen(false)
+     setIsSubmitting(false)
  },[formData,ToastError,reset,ToastSuccess])
 
   const handleClose = useCallback(() => {
@@ -201,33 +202,29 @@ const AppointmentForm = () => {
                 />
               </Grid>
 
-              <Grid
-                size={{ xs: 6, sm: 12, md: 12, lg: 12 }}
-                sx={{ mt: "10px" }}
-              >
-                <ButtonSubmission
-                  isSubmitting={isSubmitting}
-                  children={
-                    <Buttons
-                      type="submit"
-                      variant="contained"
-                      className="!p-[8px] normal-case! w-full md:w-[250px] bg-[color:var(--color-quarternary)]! hover:bg-black! hover:text-white! text-white!"
-                      size="large"
-                    >
-                      BOOK NOW
-                    </Buttons>
-                  }
-                />
+              <Grid size={{ xs: 6, sm: 12, md: 12, lg: 12 }} sx={{ mt: "10px" }}>
+                <Buttons
+                  type="submit"
+                  variant="contained"
+                  className="!p-[8px] normal-case! w-full md:w-[250px] bg-[color:var(--color-quarternary)]! hover:bg-black! hover:text-white! text-white!"
+                  size="large"
+                >
+                  BOOK NOW
+                </Buttons>
+              
               </Grid>
 
             </Grid>
           </form>
 
-          <BaseModal open={isOpen} handleClose={handleClose}>
+          <BaseModal open={isOpen} handleClose={handleClose} className='var(--color-quarternary)'>
            <ConfirmAppointment
               onSubmit={handleConfirmAddAppointment} 
-              data={formData}/>
+              data={formData}
+              isSubmit={isSubmitting}
+            />
           </BaseModal>
+
         </div>
       </div>
     </>
