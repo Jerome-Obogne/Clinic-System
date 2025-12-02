@@ -1,8 +1,9 @@
-import AppointmentForm from '@/features/patient/AppointmentForm/AppointmentForm'
+import AppointmentForm from "@/features/patient/AppointmentForm/AppointmentForm";
+
 
 const Appointment = () => {
   return (
-      <AppointmentForm />
+    <AppointmentForm />
   );
 }
 

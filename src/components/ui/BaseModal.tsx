@@ -21,9 +21,9 @@ const BaseModal = ({open,handleClose,children,className}: ModalProps) => {
         aria-describedby="child-modal-description"
       >
         <ModalDialog
+          role="dialog"
           aria-labelledby="basic-modal-dialog-title"
           aria-describedby="basic-modal-dialog-description"
-          // className="bg-[var(--color-quarternary)]"
           sx={{
             minWidth: {
               xs: "80vw",
@@ -31,9 +31,9 @@ const BaseModal = ({open,handleClose,children,className}: ModalProps) => {
               md: "30vw",
               lg: "30vw",
             },
-            background: `${className}` || '',
+            background: `${className}` || "",
             overflow: "auto",
-            padding:0
+            padding: 0,
           }}
         >
           <ModalClose />

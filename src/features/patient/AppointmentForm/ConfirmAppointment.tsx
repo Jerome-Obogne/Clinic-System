@@ -5,12 +5,12 @@ import ButtonSubmission from "@/components/ui/ButtonSubmission";
 import type { AppointmentModel } from "@/model/Appointment.model";
 
 type AppointmentProps = {
-  data: AppointmentModel;
+  data?: AppointmentModel;
   onSubmit: () => void;
-  isSubmit: boolean
+  isSubmit?: boolean
 };
 
-const ConfirmAppointment = ({ data, onSubmit, isSubmit }: AppointmentProps) => {
+const ConfirmAppointment = ({ data, onSubmit, isSubmit= false }: AppointmentProps) => {
   return (
     <>
       <div className="" data-testid="ConfirmAppointment">
@@ -25,11 +25,11 @@ const ConfirmAppointment = ({ data, onSubmit, isSubmit }: AppointmentProps) => {
             </h2>
             <Stack direction={"row"} spacing={1}>
               <h5 className="font-bold">Date: </h5>
-              <p>{data.date}</p>
+              <p>{data?.date}</p>
             </Stack>
             <Stack direction={"row"} spacing={1}>
               <h5 className="font-bold">Time: </h5>
-              <p>{data.time}</p>
+              <p>{data?.time}</p>
             </Stack>
           </div>
           <div className="mb-5">
@@ -38,15 +38,15 @@ const ConfirmAppointment = ({ data, onSubmit, isSubmit }: AppointmentProps) => {
             </h2>
             <Stack direction={"row"} spacing={1}>
               <h5 className="font-bold">Patient Full Name: </h5>
-              <p>{data.name}</p>
+              <p>{data?.name}</p>
             </Stack>
             <Stack direction={"row"} spacing={1}>
               <h5 className="font-bold">Patient Guardian Name: </h5>
-              <p> {`${data.guardian_name}`}</p>
+              <p> {`${data?.guardian_name}`}</p>
             </Stack>
             <Stack direction={"row"} spacing={1}>
               <h5 className="font-bold ">Phone Number: </h5>
-              <p> {`${data.contact_no}`}</p>
+              <p> {`${data?.contact_no}`}</p>
             </Stack>
           </div>
           <div className="">
@@ -54,7 +54,7 @@ const ConfirmAppointment = ({ data, onSubmit, isSubmit }: AppointmentProps) => {
               Reason for Appointment
             </h2>
             <Stack direction={"row"} spacing={1}>
-              <h5 className="font-bold">{`${data.concerns}`} </h5>
+              <h5 className="font-bold">{`${data?.concerns}`} </h5>
             </Stack>
           </div>
 

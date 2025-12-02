@@ -76,7 +76,6 @@ const AppointmentForm = () => {
         <div className="mt-2 ">
           <form onSubmit={handleSubmit(handleAddAppointment)}>
             <Grid container spacing={2} justifyContent={"space-between"}>
-
               <Grid size={{ xs: 12, sm: 12, md: 6, lg: 6 }}>
                 <Controller
                   control={control}
@@ -202,7 +201,10 @@ const AppointmentForm = () => {
                 />
               </Grid>
 
-              <Grid size={{ xs: 6, sm: 12, md: 12, lg: 12 }} sx={{ mt: "10px" }}>
+              <Grid
+                size={{ xs: 6, sm: 12, md: 12, lg: 12 }}
+                sx={{ mt: "10px" }}
+              >
                 <Buttons
                   type="submit"
                   variant="contained"
@@ -211,20 +213,20 @@ const AppointmentForm = () => {
                 >
                   BOOK NOW
                 </Buttons>
-              
               </Grid>
-
             </Grid>
           </form>
-
-          <BaseModal open={isOpen} handleClose={handleClose} className='var(--color-quarternary)'>
-           <ConfirmAppointment
-              onSubmit={handleConfirmAddAppointment} 
+          <BaseModal
+            open={isOpen}
+            handleClose={handleClose}
+            className="var(--color-quarternary)"
+          >
+            <ConfirmAppointment
+              onSubmit={handleConfirmAddAppointment}
               data={formData}
               isSubmit={isSubmitting}
             />
           </BaseModal>
-
         </div>
       </div>
     </>
