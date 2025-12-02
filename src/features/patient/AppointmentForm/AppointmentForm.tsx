@@ -65,7 +65,7 @@ const AppointmentForm = () => {
 
   const handleClose = useCallback(() => {
     setIsOpen((prevOpen) => !prevOpen);
-  }, []);
+  }, [open]);
 
   return (
     <>

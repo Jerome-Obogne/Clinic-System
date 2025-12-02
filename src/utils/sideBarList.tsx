@@ -8,6 +8,7 @@ import {
   DataExploration,
   CalendarMonth,
   ContactPage,
+  Password,
 } from "@mui/icons-material";
 
 const SideBarList = {
@@ -62,6 +63,12 @@ const SideBarList = {
       title: "Contacts",
       routes: WEB_ROUTES.PATIENT.CONTACTS,
       icon: <ContactPage />,
+    },
+    {
+      id: 9,
+      title: "Change Password",
+      routes: WEB_ROUTES.PATIENT.CHANGE_PASSWORD,
+      icon: <Password />,
     },
   ],
 };
