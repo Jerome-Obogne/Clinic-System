@@ -58,9 +58,7 @@ describe('Appointment Form',() => {
       const button = screen.getByRole("button", { name: /book now/i });
       await userEvent.click(button);
 
-      await waitFor(()=>{
-        expect(screen.getByText(/confirm appointment/i)).toBeInTheDocument()
-      })
+      expect(screen.getByText(/confirm appointment/i)).toBeInTheDocument()
       const modalDialog = await screen.findByRole("presentation"); // MUI Modal wrapper
       expect(modalDialog).toBeInTheDocument();
     
