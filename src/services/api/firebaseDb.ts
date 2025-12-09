@@ -1,7 +1,7 @@
 import type { ApiResponse } from "@/model/api-common";
 import { getCollectionRef } from "@/utils/firebaseUtils";
 import type { AuthError } from "firebase/auth";
-import { addDoc, doc, getDoc } from "firebase/firestore";
+import { addDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { DB } from "./firebaseConfig";
 
 const addProfile = async<T>(dbName:string, data:T) :Promise<ApiResponse<T>> => {
@@ -55,8 +55,30 @@ const getSingleDoc = async<T>(dbName: string , id:string ): Promise<ApiResponse<
 
 }
 
+const getUpdateDoc = async<T extends object>(tableName:string, id:string | null | undefined , data:T): Promise<ApiResponse<T>> => {
+
+  try {
+    const docRef = doc(DB, tableName, id as string);
+    await updateDoc(docRef, {...data});
+    return {
+      success: true,
+    };
+  } catch (error) {
+    const {code ,message} = error as AuthError;
+    return {
+       success:false,
+       error: {
+        code: code,
+        message :message
+       }
+    }
+  }
+  
+}
+
 
 export {
     addProfile,
-    getSingleDoc
+    getSingleDoc,
+    getUpdateDoc
 }

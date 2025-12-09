@@ -24,7 +24,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setLoading(true)
       const response = await getQueryProfile(users?.uid);
         if (response) {
-          setAuth({user: users,first_name: response.first_name ?? '', role:response.role})
+          setAuth({
+            user: users,
+            first_name: response.first_name ?? '', 
+            role:response.role,
+          })
         }  
       setLoading(false);
     });
@@ -36,7 +40,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       user: auth.user,
       loading,
       first_name: auth.first_name,
-      role: auth.role
+      role: auth.role,
+      setAuth
    }),[auth,loading])
 
   return (
@@ -60,6 +65,9 @@ export const getQueryProfile = async (user_id: string | undefined) => {
     return AuthDataQuery
   }
  
-  const { first_name,role } = results.docs[0].data() as ProfileModel;
-  return { first_name: first_name, role: role };
+  const { first_name,role, last_name } = results.docs[0].data() as ProfileModel;
+  return { 
+    first_name: first_name, 
+    role: role, 
+    last_name: last_name };
 };

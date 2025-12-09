@@ -14,7 +14,7 @@ import WEB_ROUTES from './routes/routes';
 import PatientLayout from './features/layout/PatientLayout';
 import Appointment from './features/patient/AppointmentForm/AppointmentForm';
 import Contacts from './pages/patient/Contacts';
-import ChangePassword from './pages/patient/ChangePassword';
+import Account from './pages/patient/Account';
 
 function App() {
   return (
@@ -35,7 +35,7 @@ function App() {
             <Route index element={<About />} />
             <Route path={WEB_ROUTES.PATIENT.APPOINTMENT} element= {<Appointment/>}/>
             <Route path={WEB_ROUTES.PATIENT.CONTACTS} element ={<Contacts/>}/>
-            <Route path={WEB_ROUTES.PATIENT.CHANGE_PASSWORD} element = {<ChangePassword/>}/>
+            <Route path={WEB_ROUTES.PATIENT.ACCOUNT} element = {<Account/>}/>
           </Route>
         </Route>
 

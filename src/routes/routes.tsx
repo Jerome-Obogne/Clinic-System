@@ -18,7 +18,7 @@ const WEB_ROUTES = {
         DASHBOARD: appendPrefix('patient'),
         APPOINTMENT: appendPatientPrefix('appointment'),
         CONTACTS: appendPatientPrefix('contact'),
-        CHANGE_PASSWORD: appendPatientPrefix('change-password')
+        ACCOUNT: appendPatientPrefix('account')
     }
 } as const
 

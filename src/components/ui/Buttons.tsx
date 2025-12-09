@@ -21,6 +21,7 @@ const Buttons = (props: BtnProps) => {
         className={props.className}
         size={props.size || "small"}
         onClick={props.onClick}
+        variant={props.variant || 'contained'}
         sx={{
           "&:hover": {
             backgroundColor: "var(--color-tertiary)",
