@@ -1,11 +1,15 @@
 import AccountForm from "@/features/patient/Account/Account"
+import ChangePassword from "./ChangePassword"
 
 const Account = () => {
   return (
-   <>
-    <AccountForm/>
-   </>
-  )
+    <>
+      <AccountForm />
+      <div className="my-6">
+        <ChangePassword />
+      </div>
+    </>
+  );
 }
 
 export default Account

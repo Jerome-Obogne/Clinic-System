@@ -8,14 +8,13 @@ import { useAuthContext } from "@/services/state/context/authContext";
 import type { ProfileModel } from "@/model/Profile.model";
 import { getUpdateDoc } from "@/services/api/firebaseDb";
 import useToastMessage from "@/hooks/useToastMessage";
-import type { AuthData} from "@/model/Auth-Context.model";
 
 
 const AccountForm = () => {
   const { ToastError } = useToastMessage();
   const auth = useAuthContext();
   const [account, setAccount] = useState<Account>(accountSchema);
-
+ 
   const handleSubmit = useCallback(async (fieldName:string| undefined , fieldValue:string) => {
     const record=  {[fieldName as string]: fieldValue} ;
     const { success,error } = await getUpdateDoc("Profiles", account.id , record);
@@ -45,10 +44,7 @@ const AccountForm = () => {
         id: profile_id
         })  
         
-         auth?.setAuth((prev: AuthData) => ({
-           ...prev,
-           first_name: first_name,
-         }));
+       auth?.handleUpdateUser({first_name:first_name})
       });
      
     
@@ -98,6 +94,7 @@ const AccountForm = () => {
           ))}
         </div>
       </div>
+     
     </>
   );
 }

@@ -29,7 +29,7 @@ const BaseModal = ({open,handleClose,children,className}: ModalProps) => {
               xs: "80vw",
               sm: "80vw",
               md: "30vw",
-              lg: "30vw",
+              lg: "40vw",
             },
             background: `${className}` || "",
             overflow: "auto",

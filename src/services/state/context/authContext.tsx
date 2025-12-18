@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { AUTH } from "@/services/api/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 import { getCollectionRef } from "@/utils/firebaseUtils";
@@ -28,6 +28,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             user: users,
             first_name: response.first_name ?? '', 
             role:response.role,
+         
           })
         }  
       setLoading(false);
@@ -36,13 +37,23 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return () => userState();
   }, []); 
 
-   const contextValue = useMemo(()=> ({
-      user: auth.user,
-      loading,
-      first_name: auth.first_name,
-      role: auth.role,
-      setAuth
-   }),[auth,loading])
+  const updateUser = useCallback((userData:Partial<AuthData>) => {
+    setAuth((prev) => ({
+      ...prev,
+      ...userData,
+    }));
+
+  },[]);
+   const contextValue = useMemo(
+     () => ({
+       user: auth.user,
+       loading,
+       first_name: auth.first_name,
+       role: auth.role,
+       handleUpdateUser:updateUser
+     }),
+     [auth, loading]
+   );
 
   return (
     <>

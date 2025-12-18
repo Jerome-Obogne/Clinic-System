@@ -5,23 +5,21 @@ interface AuthProps {
   loading: boolean;
   first_name: string;
   role: string;
-  setAuth: React.Dispatch<React.SetStateAction<AuthData>>;
+  handleUpdateUser: (userData: Partial<AuthData>) => void;
 }
 type AuthData = {
   user: User | null;
   first_name: string;
-  role: string;
-  setAuth?: React.Dispatch<React.SetStateAction<AuthData>>;
+  role: string,
 };
 type AuthQuery = Omit<AuthData, "user">;
 
 
-const AuthDefaultSchema : AuthData =  {
-    user: null,
-    first_name: '',
-    role: ''
-
-}
+const AuthDefaultSchema: AuthData = {
+  user: null,
+  first_name: "",
+  role: "",
+};
 
 const AuthDataQuery: AuthQuery = {
   first_name: "",

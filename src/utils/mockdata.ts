@@ -31,5 +31,18 @@ const subFeatures = [
    password: "Jerome123@fasa;kl12asd",
  };
 
+ const passwordCheckerList = [ 
+  'At least 8 characters',
+  'At leat 1 number (0-9)',
+  'At least 1 upper case letter (A-Z)',
+  'At least 1 lower case letter (A-Z)'
+ ]
+
  const DRAWER_WIDTH  = 240; 
-export { subFeatures, loginData,registerData,DRAWER_WIDTH };
+export {
+  subFeatures,
+  loginData,
+  registerData,
+  DRAWER_WIDTH,
+  passwordCheckerList,
+};
