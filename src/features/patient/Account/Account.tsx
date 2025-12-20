@@ -25,7 +25,6 @@ const AccountForm = () => {
   },[account.id,ToastError])
 
   useEffect(() => {
-    console.log("1");
     const profileRef = getCollectionRef("Profiles");
     const queryRef = query(profileRef, where("user_id", "==" ,auth?.user?.uid) , limit(1));
     
@@ -46,8 +45,7 @@ const AccountForm = () => {
         
        auth?.handleUpdateUser({first_name:first_name})
       });
-     
-    
+        
       return () => getProfileState();
   }, []);
 

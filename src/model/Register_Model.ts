@@ -8,16 +8,8 @@ const Register = User.extend({
 })
 
 type RegisterModel = z.infer<typeof Register>;
-// const RegisterSchema:RegisterModel = {
-//     email:'',
-//     password:'',
-//     first_name:'',
-//     last_name: '',
-   
-// }
 
 export {
-    // RegisterSchema,
     Register,
 }
 export type {

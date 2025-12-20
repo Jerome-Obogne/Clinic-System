@@ -1,14 +1,14 @@
 import BaseModal from '@/components/ui/BaseModal';
 import Buttons from '@/components/ui/Buttons'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import ChangePasswordModal from './ChangePasswordModal';
 
 const ChangePasswordForm = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setIsOpen(isOpen => !isOpen)
-  }
+  },[])
 
   const handleModal = () => {
     setIsOpen(true)

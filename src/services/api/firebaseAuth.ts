@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  updatePassword,
   type AuthError,
   type User,
 } from "firebase/auth";
@@ -11,6 +12,7 @@ import type { ApiResponse } from "@/model/api-common";
 import type { UserModel } from "@/model/User.model";
 import { getAuthMessage } from "@/utils/firebaseUtils";
 import type { FirebaseError } from "firebase/app";
+
 
 const registerUser = async (userData: UserModel): Promise<ApiResponse<User>> => {
   try {
@@ -78,8 +80,26 @@ const forgotUserPassword = async(email:string) : Promise<ApiResponse<unknown> | 
  
 }
 
-export {
-    registerUser,
-    loginUser,
-    forgotUserPassword
-}
+const changeUserPassword = async(auth:User,password:string) : Promise<ApiResponse<User>> =>{
+  try {
+    await updatePassword(auth as User ,password);
+    return {
+      success: true,
+    }
+  } catch (error) {
+    const {code,message } = error as AuthError
+    return {
+      success:false,
+      error:{
+        code:code,
+        message:message
+      }
+    }
+  }
+} 
+
+export { 
+  registerUser, 
+  loginUser, 
+  forgotUserPassword, 
+  changeUserPassword };
