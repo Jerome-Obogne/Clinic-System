@@ -1,4 +1,4 @@
-import AccountForm from "@/features/patient/Account/Account"
+import AccountForm from "@/features/patient/Account/AccountForm"
 import ChangePassword from "./ChangePassword"
 
 const Account = () => {

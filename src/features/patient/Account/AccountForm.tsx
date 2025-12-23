@@ -51,7 +51,7 @@ const AccountForm = () => {
 
   return (
     <>
-      <div>
+      <div data-testid = 'account-component'>
         <h1 className="mb-8 text-sm md:text-4xl">MY ACCOUNT</h1>
       </div>
 
@@ -65,8 +65,8 @@ const AccountForm = () => {
                 className="max-w-full w-[80px] h-auto"
               />
               <div>
-                <h1>{`${account.first_name} ${account.last_name}`}</h1>
-                <span>{account.email}</span>
+                <h1 data-testid = 'account-name'>{`${account.first_name} ${account.last_name}`}</h1>
+                <span data-testid = 'account-email' >{account.email}</span>
               </div>
             </div>
             <Buttons

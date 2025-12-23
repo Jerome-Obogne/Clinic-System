@@ -16,7 +16,7 @@ const ChangePasswordForm = () => {
 
   return (
     <>
-      <div>
+      <div data-testid = 'changePass-component'>
         <h1 className="mb-5 text-sm md:text-2xl ">Password</h1>
         <div className="mt-3">
           <Buttons
