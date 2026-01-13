@@ -4,10 +4,10 @@ import { useCallback, useState } from 'react'
 import ChangePasswordModal from './ChangePasswordModal';
 
 const ChangePasswordForm = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
 
   const handleClose = useCallback(() => {
-    setIsOpen(isOpen => !isOpen)
+    setIsOpen(false)
   },[])
 
   const handleModal = () => {

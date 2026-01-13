@@ -15,8 +15,8 @@ const AccountForm = () => {
   const auth = useAuthContext();
   const [account, setAccount] = useState<Account>(accountSchema);
  
-  const handleSubmit = useCallback(async (fieldName:string| undefined , fieldValue:string) => {
-    const record=  {[fieldName as string]: fieldValue} ;
+  const handleSubmit = useCallback(async (fieldName:string | undefined , fieldValue:string) => {
+    const record =  {[fieldName as string]: fieldValue} ;
     const { success,error } = await getUpdateDoc("Profiles", account.id , record);
     if (!success) {
       ToastError(`Try again : ${error?.code}`,)

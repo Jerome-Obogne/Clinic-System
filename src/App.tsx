@@ -28,7 +28,7 @@ function App() {
               element={<Register />}
             />
           </Route>
-        </Route>
+        </Route> 
 
         <Route element={<ProtectedRoute roles={'patient'} />}>
           <Route path={WEB_ROUTES.PATIENT.DASHBOARD} element={<PatientLayout />}>

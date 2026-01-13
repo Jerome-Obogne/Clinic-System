@@ -44,16 +44,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }));
 
   },[]);
-   const contextValue = useMemo(
-     () => ({
+
+   const contextValue = useMemo(() => ({
        user: auth.user,
        loading,
        first_name: auth.first_name,
        role: auth.role,
        handleUpdateUser:updateUser
-     }),
-     [auth, loading]
-   );
+     }),[auth, loading]);
 
   return (
     <>

@@ -80,7 +80,7 @@ const forgotUserPassword = async(email:string) : Promise<ApiResponse<unknown> | 
  
 }
 
-const changeUserPassword = async(auth:User,password:string) : Promise<ApiResponse<User>> =>{
+const changeUserPassword = async(auth:User, password:string) : Promise<ApiResponse<User>> =>{
   try {
     await updatePassword(auth ,password);
     return {

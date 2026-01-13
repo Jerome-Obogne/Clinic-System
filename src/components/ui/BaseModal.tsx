@@ -3,7 +3,7 @@ import Modal from "@mui/material/Modal";
 import { ModalClose ,ModalDialog } from "@mui/joy";
 
 
-type ModalProps ={
+type ModalProps = {
     open: boolean,
     handleClose: () => void,
     children: React.ReactNode,
@@ -13,7 +13,7 @@ type ModalProps ={
 
 const BaseModal = ({open,handleClose,children,className}: ModalProps) => {
   return (
-    <>
+   
       <Modal
         open={open}
         onClose={handleClose}
@@ -36,11 +36,11 @@ const BaseModal = ({open,handleClose,children,className}: ModalProps) => {
             padding: 0,
           }}
         >
-          <ModalClose />
+          <ModalClose  />
           {children}
         </ModalDialog>
       </Modal>
-    </>
+   
   );
 }
 

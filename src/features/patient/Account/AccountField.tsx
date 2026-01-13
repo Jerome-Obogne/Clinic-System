@@ -34,6 +34,8 @@ const AccountField = ({ label, name, onSubmit,value }: AccountProps) => {
     onSubmit(name,tempValue);
     setIsEdit(false);
   };
+
+  
   return (
     <div key={label}>
       <label className="">{label}</label>

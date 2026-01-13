@@ -52,7 +52,7 @@ const ChangePasswordModal = () => {
   };
   return (
     <>
-      <div className="p-5 ">
+      <div className="p-5 " data-testid = 'changepass-modal'>
         <div className="flex flex-wrap justify-center content-between">
           <div className="w-[100%] sm:w-[100%] md:w-[100%] lg:w-[40%]">
             <h1 className="text-[18px] sm:text-[22px] md:text-[40px] font-semibold">
