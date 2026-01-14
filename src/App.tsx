@@ -15,18 +15,16 @@ import PatientLayout from './features/layout/PatientLayout';
 import Appointment from './features/patient/AppointmentForm/AppointmentForm';
 import Contacts from './pages/patient/Contacts';
 import Account from './pages/patient/Account';
+import DoctorPage from './pages/doctor/DoctorPage';
 
-function App() {
+function App() { 
   return (
     <>
       <Routes>   
         <Route element={<ProtectedRoute roles = {'admin'} />}>
           <Route path={WEB_ROUTES.ADMIN.DOCTOR} element={<DoctorLayout />}>
-            <Route index element={<About />} />
-            <Route
-              path={WEB_ROUTES.ADMIN.DOCTOR_REGISTER}
-              element={<Register />}
-            />
+            <Route index element={<DoctorPage />} />
+            <Route path={WEB_ROUTES.ADMIN.DOCTOR_REGISTER} element={<Register />}/>
           </Route>
         </Route> 
 

@@ -3,11 +3,15 @@ import { Timestamp } from "firebase/firestore";
 import dayjs from 'dayjs'
 const phRegexNumber = /^\+63(?:9\d{9}|2\d{8}|[3-8]\d{8})$/;
 
-const validationMsg  ={
+export const validationMsg  = {
   name: "Name must be atleast 2 characters",
   guardian_name : "Guardian name must be atleast 2 character",
   contact_no : "The number you entered is not valid. Please try again"
 }
+
+const fireBaseTimeStampSchema =  z.custom<Timestamp>((val) => val instanceof Timestamp,{
+        message: 'Expected Timestamp error'
+    }).transform((timestamp) => timestamp.toDate())
 
 const Appointment = z.object({
   id: z.string().optional(),
@@ -25,7 +29,21 @@ const Appointment = z.object({
   update_at: z.string(),
 });
 
-const parseAppointmentSchema = z.object({
+const getAppointmentSchema =  z.object({
+  id: z.string().optional(),
+  user_id: z.string().optional(),
+  guardian_name: z.string().min(2, { error: validationMsg.guardian_name }),
+  name: z.string(),
+  concerns: z.string().optional(),
+  contact_no: z.string(),
+  date: fireBaseTimeStampSchema,
+  time: fireBaseTimeStampSchema,
+  status: z.string().optional(),
+  created_at: fireBaseTimeStampSchema,
+});
+
+
+const postAppointmentSchema = z.object({
   id: z.string().optional(),
   user_id: z.string().optional(),
   name: z.string().min(2, { error: validationMsg.name }),
@@ -60,20 +78,27 @@ const parseAppointmentSchema = z.object({
 });
 
 type AppointmentModel = z.infer<typeof Appointment>
-type parseAppointmentModel = z.infer<typeof parseAppointmentSchema>
+type AppointmentDoctor = z.infer<typeof Appointment>;
+
+type parseAppointmentModel = z.infer<typeof postAppointmentSchema>;
 const defaultAppointment: AppointmentModel = {
-  id: "", // optional → default empty string
-  user_id: "", // optional → default empty string
-  name: "", // required → must be set later
-  guardian_name: "", // required → must be set later
-  contact_no: "", // required → must be set later
-  concerns: "", // optional → default empty string
-  date: "", // required → must be set later
-  time: "", // required → must be set later
-  status: "", // optional → default empty string
-  created_at: new Date().toISOString(), // sensible default
-  update_at: new Date().toISOString(), // sensible default
+  id: "", 
+  user_id: "", 
+  name: "", 
+  guardian_name: "", 
+  contact_no: "", 
+  concerns: "", 
+  date: "", 
+  time: "", 
+  status: "",
+  created_at: new Date().toISOString(), 
+  update_at: new Date().toISOString(), 
 };
 
-export { Appointment, parseAppointmentSchema,defaultAppointment };
-export type { AppointmentModel, parseAppointmentModel };
+export {
+  Appointment,
+  postAppointmentSchema,
+  defaultAppointment,
+  getAppointmentSchema,
+};
+export type { AppointmentModel, parseAppointmentModel, AppointmentDoctor };

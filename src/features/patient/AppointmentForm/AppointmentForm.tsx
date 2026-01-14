@@ -5,7 +5,13 @@ import { useForm,Controller } from 'react-hook-form';
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Appointment, type AppointmentModel,type parseAppointmentModel,parseAppointmentSchema,defaultAppointment } from '@/model/Appointment.model';
+import {
+  Appointment,
+  type AppointmentModel,
+  type parseAppointmentModel,
+  postAppointmentSchema,
+  defaultAppointment,
+} from "@/model/Appointment.model";
 import dayjs from 'dayjs';
 import { convertDateTimeString } from '@/utils/utilities';
 import { MuiPhone } from './MuiPhoneInput';
@@ -45,7 +51,7 @@ const AppointmentForm = () => {
  };
  
  const handleConfirmAddAppointment = useCallback(async () => {
-     const parseRecord = parseAppointmentSchema.safeParse(formData);
+     const parseRecord = postAppointmentSchema.safeParse(formData);
      if (!parseRecord.success) {
        ToastError("Problem with parsing data. Please try again");
        return;
