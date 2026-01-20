@@ -1,34 +1,57 @@
-import type { AppointmentDoctor } from "@/model/Appointment.model";
-import { createSlice } from "@reduxjs/toolkit";
+import { getAppointmentSchemaArray, type AppointmentModel, type getAppointmentModel, } from "@/model/Appointment.model";
+import { getDocuments } from "@/services/api/firebaseDb";
+import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 
 // create async thunk here and the api is in the api services
+export const getAppointmentListAsync = createAsyncThunk<getAppointmentModel[],string>(
+    "appointment/getAppointmentList", async(dbName: string,{rejectWithValue}) => {
+        try {
+           const response = await getDocuments<getAppointmentModel[]>(dbName);
+           console.log(typeof getAppointmentSchemaArray.parse(response.data) )
+           return getAppointmentSchemaArray.parse(response.data) ;  
+        } catch (error) {
+            console.log(error)
+            return rejectWithValue(error instanceof Error ? error.message : 'Unknown error')
+          
+        }
+    }
+)
 
-const initialState: AppointmentDoctor = {
-  id: "",
-  user_id: "",
-  name: "",
-  guardian_name: "",
-  contact_no: "",
-  concerns: "",
-  date: "",
-  time: "",
-  status: "",
-  created_at: new Date().toISOString(),
-  update_at: new Date().toISOString(),
-};
+export type AppointmentList = {
+    data: AppointmentModel[],
+    loading :boolean,
+    error: string | null
+}
+const initialState: AppointmentList ={
+    data:[],
+    loading:false,
+    error: ''
+}
 
 
 const appointmentSlice = createSlice({
     name: 'appointment',
     initialState,
     reducers:{
-        getAppointmentRecords : (state, action) => {
-            
-        },
+      
+    },
+    extraReducers: (builder) => { 
+        builder
+         .addCase(getAppointmentListAsync.fulfilled, (state, action:PayloadAction<getAppointmentModel[]>) => {  // this is typescript issues about the model that declare
+            state.data = action.payload as AppointmentModel[]
+            state.loading = false;
+            state.error = null
+        }).addCase(getAppointmentListAsync.pending,(state) => {
+            state.loading = true
+            state.error = null
+
+        }).addCase(getAppointmentListAsync.rejected,(state,action)=> {
+            state.error = action.error.message || 'Failed to fetch appointment list';
+            state.loading = false ;
+        })
     }
 })
 
-export const { getAppointmentRecords } = appointmentSlice.actions;
 
 export default appointmentSlice.reducer

@@ -162,7 +162,7 @@ const SideBar = ({ sideBarList ,userType ,children }: SideBarModel) => {
             </List>
           <Divider />
         </Drawer>
-          <div className="mt-20 p-8 h-screen w-full md:max-w-[900px]">{children}</div>
+          <div className="mt-20 p-8 h-full w-full md:max-w-[900px]">{children}</div>
       </Box>
     </>
   );

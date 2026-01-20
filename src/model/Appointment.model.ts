@@ -9,9 +9,19 @@ export const validationMsg  = {
   contact_no : "The number you entered is not valid. Please try again"
 }
 
-const fireBaseTimeStampSchema =  z.custom<Timestamp>((val) => val instanceof Timestamp,{
-        message: 'Expected Timestamp error'
-    }).transform((timestamp) => timestamp.toDate())
+const fireBaseTimeStampSchema = z
+  .union([
+    z.custom<Timestamp>((val) => val instanceof Timestamp),
+    z.object({
+      seconds: z.number(),
+      nanoseconds: z.number(),
+    }),
+  ]).transform((timestamp) => {
+    if (timestamp instanceof Timestamp) {
+      return timestamp.toDate().toISOString()
+    }
+    return new Timestamp(timestamp.seconds, timestamp.nanoseconds).toDate();
+  }).nullable().optional();
 
 const Appointment = z.object({
   id: z.string().optional(),
@@ -26,10 +36,10 @@ const Appointment = z.object({
   time: z.string(),
   status: z.string().optional(),
   created_at: z.string(),
-  update_at: z.string(),
+  update_at: z.string().optional(),
 });
 
-const getAppointmentSchema =  z.object({
+const getAppointmentSchema = z.object({
   id: z.string().optional(),
   user_id: z.string().optional(),
   guardian_name: z.string().min(2, { error: validationMsg.guardian_name }),
@@ -40,8 +50,10 @@ const getAppointmentSchema =  z.object({
   time: fireBaseTimeStampSchema,
   status: z.string().optional(),
   created_at: fireBaseTimeStampSchema,
+  update_at: fireBaseTimeStampSchema,
 });
 
+const getAppointmentSchemaArray = z.array(getAppointmentSchema)
 
 const postAppointmentSchema = z.object({
   id: z.string().optional(),
@@ -78,9 +90,8 @@ const postAppointmentSchema = z.object({
 });
 
 type AppointmentModel = z.infer<typeof Appointment>
-type AppointmentDoctor = z.infer<typeof Appointment>;
-
 type parseAppointmentModel = z.infer<typeof postAppointmentSchema>;
+type getAppointmentModel = z.infer<typeof getAppointmentSchema>
 const defaultAppointment: AppointmentModel = {
   id: "", 
   user_id: "", 
@@ -100,5 +111,6 @@ export {
   postAppointmentSchema,
   defaultAppointment,
   getAppointmentSchema,
+  getAppointmentSchemaArray,
 };
-export type { AppointmentModel, parseAppointmentModel, AppointmentDoctor };
+export type { AppointmentModel, parseAppointmentModel, getAppointmentModel };
