@@ -34,11 +34,11 @@ const ContactForm = () => {
   }
   return (
     <>
-      <div>
+      <div className="">
         <Box>
           <h1 className="mb-8 text-sm md:text-4xl">Contact Form</h1>
         </Box>
-        <div className="mt-2">
+        <div className="mt-2 max-w-[900px]!">
           <form onSubmit={handleSubmit(handleAddContact)}>
             <Grid container spacing={2}>
               <Grid size={{ xs: 12, sm: 12, md: 12, lg: 12 }}>

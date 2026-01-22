@@ -92,7 +92,11 @@ const SideBar = ({ sideBarList ,userType ,children }: SideBarModel) => {
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         {
-          <NavBar open = {open} handleDrawer={handleDrawerOpen} handleLogout={handleLogout}/>
+          <NavBar
+            open={open}
+            handleDrawer={handleDrawerOpen}
+            handleLogout={handleLogout}
+          />
         }
         <Drawer variant="permanent" open={open}>
           <IconButton onClick={handleDrawerClose}>
@@ -116,53 +120,65 @@ const SideBar = ({ sideBarList ,userType ,children }: SideBarModel) => {
           </div>
 
           <Divider />
-            <List sx={{}}>
-              {sideBarData.map((data: any) => (
-                <ListItem
-                  disablePadding
-                  key={data.id}
-                  sx={{ display: "block", mt: "20px" }}
-                >
-                  <Link to={data.routes}>
-                    <ListItemButton
+          <List sx={{}}>
+            {sideBarData.map((data: any) => (
+              <ListItem
+                disablePadding
+                key={data.id}
+                sx={{ display: "block", mt: "20px" }}
+              >
+                <Link to={data.routes}>
+                  <ListItemButton
+                    sx={[
+                      {
+                        minHeight: 48,
+                        px: 2.5,
+                        backgroundColor: `${
+                          pathname == data.routes
+                            ? "var(--color-quarternary)"
+                            : "transparent"
+                        }`,
+                      },
+                      open
+                        ? { justifyContent: "initial" }
+                        : { justifyContent: "center" },
+                    ]}
+                  >
+                    <ListItemIcon
                       sx={[
-                        {
-                          minHeight: 48,
-                          px: 2.5,
-                          backgroundColor: `${
-                            pathname == data.routes
-                              ? "var(--color-quarternary)"
-                              : "transparent"
-                          }`,
-                        },
-                        open
-                          ? { justifyContent: "initial" }
-                          : { justifyContent: "center" },
+                        { minWidth: 0, justifyContent: "center" },
+                        open ? { mr: 3 } : { mr: "auto" },
                       ]}
                     >
-                      <ListItemIcon
-                        sx={[
-                          { minWidth: 0, justifyContent: "center" },
-                          open ? { mr: 3 } : { mr: "auto" },
-                        ]}
-                      >
-                        {data.icon}
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={data.title}
-                        style={{
-                          opacity: `${open ? "1" : "0"} `,
-                          fontWeight: "600",
-                        }}
-                      />
-                    </ListItemButton>
-                  </Link>
-                </ListItem>
-              ))}
-            </List>
+                      {data.icon}
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={data.title}
+                      style={{
+                        opacity: `${open ? "1" : "0"} `,
+                        fontWeight: "600",
+                      }}
+                    />
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+            ))}
+          </List>
           <Divider />
         </Drawer>
-          <div className="mt-20 p-8 h-full w-full md:max-w-[900px]">{children}</div>
+        {/* <div className="mt-20 p-8 h-full w-full md:max-w-[900px] lg:max-w-full">{children}</div> */}
+          <Box
+            component="main"
+            sx={{
+              flexGrow: 1,
+              p: 3,
+              mt: 10,
+              width: "100%",
+              overflow: "hidden",
+            }}
+          >
+            {children}
+          </Box>
       </Box>
     </>
   );

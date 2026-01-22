@@ -4,7 +4,7 @@ import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/tool
 
 
 // create async thunk here and the api is in the api services
-export const getAppointmentListAsync = createAsyncThunk<getAppointmentModel[],string>(
+export const fetchAppointmentListAsync = createAsyncThunk<getAppointmentModel[],string>(
     "appointment/getAppointmentList", async(dbName: string,{rejectWithValue}) => {
         try {
            const response = await getDocuments<getAppointmentModel[]>(dbName);
@@ -38,18 +38,23 @@ const appointmentSlice = createSlice({
     },
     extraReducers: (builder) => { 
         builder
-         .addCase(getAppointmentListAsync.fulfilled, (state, action:PayloadAction<getAppointmentModel[]>) => {  // this is typescript issues about the model that declare
+         .addCase(fetchAppointmentListAsync.fulfilled, (state, action:PayloadAction<getAppointmentModel[]>) => {  // this is typescript issues about the model that declare
             state.data = action.payload as AppointmentModel[]
             state.loading = false;
             state.error = null
-        }).addCase(getAppointmentListAsync.pending,(state) => {
+        }).addCase(fetchAppointmentListAsync.pending,(state) => {
             state.loading = true
             state.error = null
 
-        }).addCase(getAppointmentListAsync.rejected,(state,action)=> {
+        }).addCase(fetchAppointmentListAsync.rejected,(state,action)=> {
             state.error = action.error.message || 'Failed to fetch appointment list';
             state.loading = false ;
         })
+
+        // Create appointment record
+        // .addCase(fetchAppointmentListAsync.fulfilled,(state,action)=>{
+            
+        // }) 
     }
 })
 

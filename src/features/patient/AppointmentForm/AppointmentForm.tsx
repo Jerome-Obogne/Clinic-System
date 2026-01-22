@@ -75,7 +75,7 @@ const AppointmentForm = () => {
 
   return (
     <>
-      <div className="">
+      <div className="max-w-[1200px]!">
         <Box>
           <h1 className="mb-8 text-sm md:text-4xl">Appointment Form</h1>
         </Box>
