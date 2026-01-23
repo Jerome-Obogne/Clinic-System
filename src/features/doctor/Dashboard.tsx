@@ -55,13 +55,47 @@ const Dashboard = () => {
       <div className="max-w-full!">
         <Grid container spacing={2} justifyContent={"space-between"}>
           <Grid size={{ xs: 12, sm: 12, md: 6, lg: 6 }}>
-            <div className="outline-2 outline-indigo-500  h-80">
+            <div className="shadow-2xl/60 p-3 rounded-md">
+              <div className="h-80 bg-[url('./image/wave.svg')] bg-cover bg-top-right p-4 font-bold">
+                <div className="flex justify-between">
+                  <div>
+                    <h3 className="text-md sm:text-xl md:text-xl lg:text-2xl mb-4">
+                      Total Appointment
+                    </h3>
+                  </div>
+
+                  <div className="items-end text-[12px]">
+                    <span className="text-green-500">5.9%</span>
+                    <span className="text-gray-300"> within the day</span>
+                  </div>
+                </div>
+                <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl px-2">
+                  60
+                </p>
+              </div>
             </div>
           </Grid>
 
           <Grid size={{ xs: 12, sm: 12, md: 6, lg: 6 }}>
-            <div className="outline-2 outline-purple-500  h-full">
+            <div className="shadow-2xl/60 p-3 rounded-md">
+              <div className="h-80 bg-[url('./image/wave_2.svg')] bg-top-right bg-cover p-4 font-bold ">
+                
+                <div className="flex justify-between">
+                  <div>
+                    <h3 className="text-md sm:text-xl md:text-xl lg:text-2xl mb-4">
+                      Total Patients
+                    </h3>
+                  </div>
 
+                  <div className="items-end text-[12px]">
+                    <span className="text-green-500">5.9%</span>
+                    <span className="text-gray-300"> within the day</span>
+                  </div>
+                </div>
+                <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl px-2">
+                  210
+                </p>
+              </div>
             </div>
           </Grid>
 
