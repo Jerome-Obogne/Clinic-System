@@ -1,29 +1,39 @@
 import GridTable from "@/components/ui/GridTable";
 import Spinner from "@/components/ui/Spinner";
+import type { AppointmentModel } from "@/model/Appointment.model";
 import { fetchAppointmentListAsync } from "@/services/state/redux/slice/appointmentSlice";
 import type { AppDispatch, RootState } from "@/services/state/redux/store";
 import { convertDateTimeString } from "@/utils/utilities";
 import { Grid } from "@mui/material";
 import type { GridColDef } from "@mui/x-data-grid";
 import dayjs from "dayjs";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useMemo } from "react";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 const Dashboard = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const {data,loading,error} = useSelector((state:RootState)=> state.appointment)
-  useEffect(() => {
-    dispatch(fetchAppointmentListAsync("Appointment"));
-  },[dispatch])
+  const {data,loading,error} = useSelector((state:RootState)=> state.appointment,shallowEqual)
 
-  if (loading) {
-    return <Spinner isDefault height={300} width={300} />; 
-  }
-  if (error) {
-    return (
-      <h1>ERROR</h1>
-    )
-  }
+  const dashBoardRecords = useMemo(() => {
+    const actualAppointmentRecords: Record<string, boolean> = {};
+    const appointmentCount = data.filter((records: AppointmentModel) => {
+      
+      const identity = `${records.user_id}-${convertDateTimeString(dayjs(records.date), "MM/DD/YYYY")}`;
+      if (actualAppointmentRecords[identity]) return false;
+      actualAppointmentRecords[identity] = true;
+      return true;
+    }).length;
+
+    const patientCount = data.filter((record: AppointmentModel) => !record.user_id,).length;
+    return {
+      totalAppointment: appointmentCount,
+      totalPatient:  appointmentCount + patientCount,
+    };
+  },[data])
+
+   useEffect(() => {
+     dispatch(fetchAppointmentListAsync("Appointment"));
+   }, []);
 
 
   const columnsField: GridColDef[] = [
@@ -49,7 +59,12 @@ const Dashboard = () => {
       },
     },
   ];
-
+  if (loading) {
+    return <Spinner isDefault height={300} width={300} />;
+  }
+  if (error) {
+    return <h1>ERROR</h1>;
+  }
   return (
     <>
       <div className="max-w-full!">
@@ -70,7 +85,7 @@ const Dashboard = () => {
                   </div>
                 </div>
                 <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl px-2">
-                  60
+                  {dashBoardRecords.totalAppointment}
                 </p>
               </div>
             </div>
@@ -79,7 +94,6 @@ const Dashboard = () => {
           <Grid size={{ xs: 12, sm: 12, md: 6, lg: 6 }}>
             <div className="shadow-2xl/60 p-3 rounded-md">
               <div className="h-80 bg-[url('./image/wave_2.svg')] bg-top-right bg-cover p-4 font-bold ">
-                
                 <div className="flex justify-between">
                   <div>
                     <h3 className="text-md sm:text-xl md:text-xl lg:text-2xl mb-4">
@@ -93,7 +107,7 @@ const Dashboard = () => {
                   </div>
                 </div>
                 <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl px-2">
-                  210
+                  {dashBoardRecords.totalPatient}
                 </p>
               </div>
             </div>
