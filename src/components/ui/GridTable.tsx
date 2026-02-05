@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import { DataGrid, type GridColDef, type GridRowModel } from "@mui/x-data-grid";
-;
+
 
 interface TableProps<T extends GridRowModel> {
     rows: T[],

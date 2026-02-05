@@ -1,4 +1,4 @@
-import Dashboard from "@/features/doctor/Dashboard"
+import Dashboard from "@/features/doctor/dashboard/Dashboard"
 
 const DoctorPage = () => {
   return (
