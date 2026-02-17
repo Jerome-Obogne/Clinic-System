@@ -7,6 +7,7 @@ type DashboardProps = {
 }
 
 export const DashboardCard = memo(({ imagePath, value,title }: DashboardProps) => {
+  console.log(imagePath)
   return (
     <>
       <div className="shadow-2xl/60 p-3 rounded-md">

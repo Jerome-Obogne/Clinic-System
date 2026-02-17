@@ -1,6 +1,5 @@
 import GridTable from "@/components/ui/GridTable";
 import Spinner from "@/components/ui/Spinner";
-import type { AppointmentModel } from "@/model/Appointment.model";
 import { fetchAppointmentListAsync } from "@/services/state/redux/slice/appointmentSlice";
 import type { AppDispatch, RootState } from "@/services/state/redux/store";
 import { convertDateTimeString } from "@/utils/utilities";
@@ -10,32 +9,6 @@ import dayjs from "dayjs";
 import { useEffect, useMemo } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { DashboardCard } from "./Components";
-
-const Dashboard = () => {
-  const dispatch = useDispatch<AppDispatch>()
-  const {data,loading,error} = useSelector((state:RootState)=> state.appointment,shallowEqual)
-
-  const dashBoardRecords = useMemo(() => {
-    const actualAppointmentRecords: Record<string, boolean> = {};
-    
-    const appointmentCount = data.filter((records: AppointmentModel) => {
-      
-      const identity = `${records.user_id}-${convertDateTimeString(dayjs(records.date), "MM/DD/YYYY")}`;
-      if (actualAppointmentRecords[identity]) return false;
-      actualAppointmentRecords[identity] = true;
-      return true;
-    }).length;
-
-    const patientCount = data.filter((record: AppointmentModel) => !record.user_id,).length;
-    return {
-      totalAppointment: appointmentCount,
-      totalPatient:  appointmentCount + patientCount,
-    };
-  },[data])
-
-   useEffect(() => {
-     dispatch(fetchAppointmentListAsync("Appointment"));
-   }, []);
 
 
   const columnsField: GridColDef[] = [
@@ -48,7 +21,7 @@ const Dashboard = () => {
       headerName: "Date",
       minWidth: 200,
       valueGetter: (value: any) => {
-        return convertDateTimeString(dayjs(value),"MM/DD/YYYY");
+        return convertDateTimeString(dayjs(value), "MM/DD/YYYY");
       },
     },
     {
@@ -56,12 +29,38 @@ const Dashboard = () => {
       headerName: "Visit Time",
       minWidth: 100,
       valueGetter: (value: any) => {
-   
-        return convertDateTimeString(dayjs(value), "hh:mm:a");
+        return convertDateTimeString(dayjs(value), "hh:mm a");
       },
     },
   ];
   
+const Dashboard = () => {
+  const dispatch = useDispatch<AppDispatch>()
+  const {data,loading,error} = useSelector((state:RootState)=> state.appointment,shallowEqual)
+
+  const dashBoardRecords = useMemo(() => {
+    const actualAppointmentRecords: Record<string, boolean> = {};
+    
+    const appointmentCount = data.filter((records) => {
+      
+      const identity = `${records.user_id}-${convertDateTimeString(dayjs(records.date), "MM/DD/YYYY")}`;
+      if (actualAppointmentRecords[identity]) return false;
+        actualAppointmentRecords[identity] = true;
+        return true;
+    }).length;
+
+    const patientCount = data.filter((record) => !record.user_id,).length;
+    return {
+      totalAppointment: appointmentCount,
+      totalPatient:  appointmentCount + patientCount,
+    };
+  },[data])
+
+   useEffect(() => {
+     dispatch(fetchAppointmentListAsync("Appointment"));
+   }, []);
+
+
   if (loading) {
     return <Spinner isDefault height={300} width={300} />;
   }
@@ -69,7 +68,7 @@ const Dashboard = () => {
     return <h1>ERROR</h1>;
   }
   return (
-    <>
+ 
       <div className="max-w-full!">
         <Grid container spacing={2} justifyContent={"space-between"}>
           <Grid size={{ xs: 12, sm: 12, md: 6, lg: 6 }}>
@@ -91,7 +90,6 @@ const Dashboard = () => {
           </Grid>
         </Grid>
       </div>
-    </>
   );
 } 
 
