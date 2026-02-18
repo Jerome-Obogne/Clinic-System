@@ -1,20 +1,35 @@
+import { useEffect } from "react";
+import useToastMessage from "@/hooks/useToastMessage";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "@/services/state/redux/store";
+import { fetchAppointmentListAsync } from "@/services/state/redux/slice/appointmentSlice";
+import type { AppointmentModel, parseAppointmentModel } from "@/model/Appointment.model";
+import { getUpdateDoc } from "@/services/api/firebaseDb";
 import GridTable from "@/components/ui/GridTable";
-import type { RootState } from "@/services/state/redux/store";
+import Spinner from "@/components/ui/Spinner";
 import { convertDateTimeString } from "@/utils/utilities";
-import { Box,Grid } from "@mui/material";
-import { GridActionsCellItem, type GridColDef,  } from "@mui/x-data-grid";
-import dayjs from "dayjs";
-import { shallowEqual, useSelector } from "react-redux";
+import { Box, Grid } from "@mui/material";
+import { GridActionsCellItem, type GridColDef } from "@mui/x-data-grid";
 import { FcCheckmark } from "react-icons/fc";
-
 import EditCalendarIcon from "@mui/icons-material/EditCalendar";
+import dayjs from "dayjs";
+
 const PendingAppointment = () => {
-  const {data,loading,error} = useSelector((state:RootState)=> state.appointment,shallowEqual)
-  
-  const handleUpdateAppointment = async (id:number)=> {
-      alert(`Update appointment with id ${id}`)
-  }
-  
+  const dispatch = useDispatch<AppDispatch>();
+  const { data, loading, error } = useSelector((state: RootState) => state.appointment,shallowEqual,);
+  const { ToastError, ToastSuccess } = useToastMessage();
+
+
+   // this functions need to recode since it need to use the update in redux state 
+  const handleUpdateAppointment = async (appoinmentId:string) => {
+    const { success, error } = await getUpdateDoc("Appointment",appoinmentId,{status:'Y'});
+    if (!success) {
+     ToastError(`Try again ${error?.code}`);
+     return;
+    }
+     ToastSuccess("Appointment has been scheduled!");
+  };
+
   const columnsField: GridColDef[] = [
     {
       field: "slot",
@@ -54,7 +69,7 @@ const PendingAppointment = () => {
       headerName: "Actions",
       minWidth: 300,
       cellClassName: "actions",
-      renderCell: (params:any) => {
+      renderCell: (params: any) => {
         return (
           <>
             <div className="mx-5">
@@ -62,9 +77,7 @@ const PendingAppointment = () => {
                 icon={<FcCheckmark size={"30px"} />}
                 label="Accept"
                 className="textPrimary"
-                onClick={() => {
-                  alert("Approve appointment");
-                }}
+                onClick={() => handleUpdateAppointment(params.row.id)}
                 color="inherit"
               />
             </div>
@@ -77,27 +90,44 @@ const PendingAppointment = () => {
               }
               label="Accept"
               className="textPrimary"
-              onClick={()=>handleUpdateAppointment(params.id)}
+              onClick={() => {
+                alert("Edit appointment");
+              }}
               color="inherit"
             />
           </>
         );
       },
-    }
+    },
   ];
- 
+
+  useEffect(() => {
+    if (!data.length) {
+      dispatch(fetchAppointmentListAsync("Appointment"));
+    }
+  }, [dispatch]);
+
+  if (loading) {
+    return <Spinner isDefault height={300} width={300} />;
+  }
+  if (error) {
+    return <h1>ERROR</h1>;
+  }
+
   return (
     <div className="max-w-full!">
       <Box>
-        <h1 className="mb-8 text-sm md:text-4xl text-center font-bold">PENDING APPOINTMENTS</h1>
+        <h1 className="mb-8 text-sm md:text-4xl text-center font-bold">
+          PENDING APPOINTMENTS
+        </h1>
       </Box>
       <Grid container spacing={2} justifyContent={"space-between"}>
-          <Grid size={12}>
-             <GridTable rows={data} columns={columnsField} />
-          </Grid>
+        <Grid size={12}>
+          <GridTable rows={data} columns={columnsField} />
+        </Grid>
       </Grid>
     </div>
   );
-}
+};
 
 export default PendingAppointment;

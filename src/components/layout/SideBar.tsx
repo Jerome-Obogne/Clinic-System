@@ -111,7 +111,7 @@ const SideBar = ({ sideBarList ,userType ,children }: SideBarModel) => {
             <div className="w-52">
               <Link to="/">
                 <img
-                  src="../logo/sample22.png"
+                  src="/logo/sample22.png"
                   alt="nav logo"
                   className="max-w-full w-[700px] h-auto"
                 />
