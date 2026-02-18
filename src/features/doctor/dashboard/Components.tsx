@@ -12,7 +12,8 @@ export const DashboardCard = memo(({ imagePath, value,title }: DashboardProps) =
     <>
       <div className="shadow-2xl/60 p-3 rounded-md">
         <div
-          className={`h-80 bg-[url('${imagePath}')] bg-cover bg-top-right p-4 font-bold`}
+          className="h-80 bg-cover bg-top-right p-4 font-bold"
+          style={{ backgroundImage: `url('${imagePath}')` }}
         >
           <div className="flex justify-between">
             <div>

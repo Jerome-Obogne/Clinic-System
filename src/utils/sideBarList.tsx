@@ -28,7 +28,7 @@ const SideBarList = {
     {
       id: 3,
       title: "Pendings",
-      routes: WEB_ROUTES.ADMIN.DOCTOR_REGISTER,
+      routes: WEB_ROUTES.ADMIN.DOCTOR_PENDING,
       icon: <PendingActions />,
     },
     {

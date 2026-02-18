@@ -51,14 +51,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
        first_name: auth.first_name,
        role: auth.role,
        handleUpdateUser:updateUser
-     }),[auth, loading]);
+     }),[auth, loading,updateUser]);
 
   return (
-    <>
+   
       <AuthContext.Provider value={contextValue}>
         {children}
       </AuthContext.Provider>
-    </>
+  
   );
 };
 

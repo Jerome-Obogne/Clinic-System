@@ -16,6 +16,7 @@ import Appointment from './features/patient/AppointmentForm/AppointmentForm';
 import Contacts from './pages/patient/Contacts';
 import Account from './pages/patient/Account';
 import DoctorPage from './pages/doctor/DoctorPage';
+import PendingAppointment from './pages/doctor/PendingAppointment'
 
 function App() { 
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path={WEB_ROUTES.ADMIN.DOCTOR} element={<DoctorLayout />}>
             <Route index element={<DoctorPage />} />
             <Route path={WEB_ROUTES.ADMIN.DOCTOR_REGISTER} element={<Register />}/>
+            <Route path={WEB_ROUTES.ADMIN.DOCTOR_PENDING} element={<PendingAppointment/>}/>
           </Route>
         </Route> 
 

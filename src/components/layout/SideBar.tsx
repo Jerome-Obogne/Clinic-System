@@ -89,7 +89,7 @@ const SideBar = ({ sideBarList ,userType ,children }: SideBarModel) => {
 
   return (
     <>
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", minHeight: "100vh" }}>
         <CssBaseline />
         {
           <NavBar
@@ -166,19 +166,21 @@ const SideBar = ({ sideBarList ,userType ,children }: SideBarModel) => {
           </List>
           <Divider />
         </Drawer>
+   
         {/* <div className="mt-20 p-8 h-full w-full md:max-w-[900px] lg:max-w-full">{children}</div> */}
-          <Box
-            component="main"
-            sx={{
-              flexGrow: 1,
-              p: 3,
-              mt: 10,
-              width: "100%",
-              overflow: "hidden",
-            }}
-          >
-            {children}
-          </Box>
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            p: 3,
+            mt: 10,
+            width: "100%",
+            overflow: "hidden",
+            height: "100%",
+          }}
+        >
+          {children}
+        </Box>
       </Box>
     </>
   );

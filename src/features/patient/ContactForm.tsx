@@ -34,7 +34,7 @@ const ContactForm = () => {
   }
   return (
     <>
-      <div className="">
+      <div className="h-full!">
         <Box>
           <h1 className="mb-8 text-sm md:text-4xl">Contact Form</h1>
         </Box>

@@ -41,7 +41,7 @@ vi.mock("../../src/services/api/firebaseAuth", () => ({
 
 
 describe("Login Form", () => {
-  it("should render the Login form and provide actions", async () => {
+  it("should render the Login form and allow user to submit credentials", async () => {
     const { testElements } = renderLoginTest();
    
     vi.mocked(loginUser).mockResolvedValue({
