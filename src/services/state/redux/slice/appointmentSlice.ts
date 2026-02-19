@@ -1,5 +1,5 @@
-import { getAppointmentSchemaArray, type AppointmentModel, type getAppointmentModel, } from "@/model/Appointment.model";
-import { getDocuments } from "@/services/api/firebaseDb";
+import { getAppointmentSchemaArray, type AppointmentModel, type getAppointmentModel, type parseAppointmentModel, } from "@/model/Appointment.model";
+import { getDocuments, getUpdateDoc } from "@/services/api/firebaseDb";
 import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 
@@ -8,8 +8,7 @@ export const fetchAppointmentListAsync = createAsyncThunk<getAppointmentModel[],
     "appointment/getAppointmentList", async(dbName: string,{rejectWithValue}) => {
         try {
            const response = await getDocuments<getAppointmentModel[]>(dbName);
-           console.log(typeof getAppointmentSchemaArray.parse(response.data) )
-           return getAppointmentSchemaArray.parse(response.data) ;  
+           return getAppointmentSchemaArray.parse(response.data);  
         } catch (error) {
             console.log(error)
             return rejectWithValue(error instanceof Error ? error.message : 'Unknown error')
@@ -17,6 +16,24 @@ export const fetchAppointmentListAsync = createAsyncThunk<getAppointmentModel[],
         }
     }
 )
+export const updateAppointmentAsync = createAsyncThunk(
+    "appointment/updateAppointmentList", async(params:parseAppointmentModel, {rejectWithValue,dispatch}) => {
+        try {
+            const response = await getUpdateDoc<parseAppointmentModel>('Appointment',params.id,params)
+             if (response.success){
+                await dispatch(fetchAppointmentListAsync('Appointment')) 
+                return  response.data
+             }
+             return rejectWithValue('Update appointment action failed')
+        } catch (error) {
+              console.log(error)
+              return rejectWithValue(error instanceof Error ? error.message : 'Unknown error')
+        }
+    }
+)
+
+
+
 
 export type AppointmentList = {
     data: AppointmentModel[],
@@ -49,12 +66,20 @@ const appointmentSlice = createSlice({
         }).addCase(fetchAppointmentListAsync.rejected,(state,action)=> {
             state.error = action.error.message || 'Failed to fetch appointment list';
             state.loading = false ;
-        })
+        }).
+        
+        // Update appointment record
+         addCase(updateAppointmentAsync.fulfilled,(state)=> {
+            state.loading = false
+            state.error = null
+         }).addCase(updateAppointmentAsync.pending,(state) => {
+            state.loading = true
+            state.error = null
+         }).addCase(updateAppointmentAsync.rejected,(state,action)=> {
+            state.error = action.error.message || "Failed to update appointment record"
+            state.loading = false
+         })
 
-        // Create appointment record
-        // .addCase(fetchAppointmentListAsync.fulfilled,(state,action)=>{
-            
-        // }) 
     }
 })
 

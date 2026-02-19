@@ -64,6 +64,7 @@ const getUpdateDoc = async<T extends object>(tableName:string, id:string | null 
       success: true,
     };
   } catch (error) {
+    console.log("ERRORRRRRRR")
     const {code ,message} = error as AuthError;
     return {
        success:false,

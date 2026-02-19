@@ -2,9 +2,8 @@ import { useEffect } from "react";
 import useToastMessage from "@/hooks/useToastMessage";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "@/services/state/redux/store";
-import { fetchAppointmentListAsync } from "@/services/state/redux/slice/appointmentSlice";
-import type { AppointmentModel, parseAppointmentModel } from "@/model/Appointment.model";
-import { getUpdateDoc } from "@/services/api/firebaseDb";
+import { fetchAppointmentListAsync, updateAppointmentAsync } from "@/services/state/redux/slice/appointmentSlice";
+import {  postAppointmentSchema, type parseAppointmentModel } from "@/model/Appointment.model";
 import GridTable from "@/components/ui/GridTable";
 import Spinner from "@/components/ui/Spinner";
 import { convertDateTimeString } from "@/utils/utilities";
@@ -13,21 +12,24 @@ import { GridActionsCellItem, type GridColDef } from "@mui/x-data-grid";
 import { FcCheckmark } from "react-icons/fc";
 import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import dayjs from "dayjs";
+import { useNavigate } from "react-router";
+import WEB_ROUTES from "@/routes/routes";
 
 const PendingAppointment = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const { data, loading, error } = useSelector((state: RootState) => state.appointment,shallowEqual,);
   const { ToastError, ToastSuccess } = useToastMessage();
-
-
-   // this functions need to recode since it need to use the update in redux state 
-  const handleUpdateAppointment = async (appoinmentId:string) => {
-    const { success, error } = await getUpdateDoc("Appointment",appoinmentId,{status:'Y'});
-    if (!success) {
-     ToastError(`Try again ${error?.code}`);
-     return;
-    }
-     ToastSuccess("Appointment has been scheduled!");
+ 
+  const handleUpdateAppointment = async (value:parseAppointmentModel) => { 
+    const updateRecord = { ...value, status: "Y" };
+    const result = await dispatch(updateAppointmentAsync(postAppointmentSchema.parse(updateRecord)));
+      if (!updateAppointmentAsync.fulfilled.match(result)) {
+        ToastError(`Try again ${result.payload as string}` || "Something went wrong");
+        return;
+      }
+      ToastSuccess("Appointment has been scheduled!");
+      navigate(`${WEB_ROUTES.ADMIN.DOCTOR_PENDING}`)
   };
 
   const columnsField: GridColDef[] = [
@@ -77,7 +79,7 @@ const PendingAppointment = () => {
                 icon={<FcCheckmark size={"30px"} />}
                 label="Accept"
                 className="textPrimary"
-                onClick={() => handleUpdateAppointment(params.row.id)}
+                onClick={() => handleUpdateAppointment(params.row as parseAppointmentModel)}
                 color="inherit"
               />
             </div>
@@ -91,7 +93,7 @@ const PendingAppointment = () => {
               label="Accept"
               className="textPrimary"
               onClick={() => {
-                alert("Edit appointment");
+                navigate(`${WEB_ROUTES.ADMIN.DOCTOR_BOOK_PATIENT}/${params.row.id}`)
               }}
               color="inherit"
             />
@@ -101,11 +103,11 @@ const PendingAppointment = () => {
     },
   ];
 
-  useEffect(() => {
-    if (!data.length) {
-      dispatch(fetchAppointmentListAsync("Appointment"));
+  useEffect(()=>{
+    if (!data.length){
+      dispatch(fetchAppointmentListAsync('Appointment'))
     }
-  }, [dispatch]);
+  },[dispatch])
 
   if (loading) {
     return <Spinner isDefault height={300} width={300} />;

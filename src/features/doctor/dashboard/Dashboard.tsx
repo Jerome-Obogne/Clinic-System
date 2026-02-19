@@ -36,8 +36,8 @@ import { DashboardCard } from "./Components";
   
 const Dashboard = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const {data,loading,error} = useSelector((state:RootState)=> state.appointment,shallowEqual)
-
+  const {data,loading,error} = useSelector((state:RootState)=>  state.appointment,shallowEqual)
+ 
   const dashBoardRecords = useMemo(() => {
     const actualAppointmentRecords: Record<string, boolean> = {};
     

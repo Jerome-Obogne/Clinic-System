@@ -24,6 +24,7 @@ const GridTable =  <T extends GridRowModel,>({rows,columns}: TableProps<T>) => {
           }}
           pageSizeOptions={[5]}
           disableColumnMenu={true}
+          
         />
     </>
   );

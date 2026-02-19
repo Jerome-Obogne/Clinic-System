@@ -34,7 +34,7 @@ const SideBarList = {
     {
       id: 4,
       title: "Book Patients",
-      routes: WEB_ROUTES.AUTH.LOGIN,
+      routes: WEB_ROUTES.ADMIN.DOCTOR_BOOK_PATIENT,
       icon: <PersonalInjury />,
     },
 

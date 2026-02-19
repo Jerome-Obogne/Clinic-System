@@ -13,7 +13,8 @@ const WEB_ROUTES = {
     ADMIN : {
         DOCTOR: appendPrefix('admin'),
         DOCTOR_REGISTER: appendDocPrefix('register'),
-        DOCTOR_PENDING: appendDocPrefix('pending')
+        DOCTOR_PENDING: appendDocPrefix('pending'),
+        DOCTOR_BOOK_PATIENT:appendDocPrefix('book_patient')
     },
     PATIENT: {
         DASHBOARD: appendPrefix('patient'),
