@@ -20,6 +20,7 @@ import { addProfile } from '@/services/api/firebaseDb';
 import { useAuthContext } from '@/services/state/context/authContext';
 import BaseModal from '@/components/ui/BaseModal';
 import ConfirmAppointment from './ConfirmAppointment';
+import UserCard from '@/components/ui/UserCard';
 
 const AppointmentForm = () => {
  const {ToastError,ToastSuccess} = useToastMessage()
@@ -102,7 +103,7 @@ const AppointmentForm = () => {
                         value={dayjs(value, "MM/DD/YYYY")}
                         onChange={(newValue) => {
                           onChange(
-                            convertDateTimeString(newValue, "MM/DD/YYYY")
+                            convertDateTimeString(newValue, "MM/DD/YYYY"),
                           );
                         }}
                         slotProps={{
@@ -220,6 +221,8 @@ const AppointmentForm = () => {
                   BOOK NOW
                 </Buttons>
               </Grid>
+
+              <UserCard title="FOR TESTING PURPOSE" />
             </Grid>
           </form>
           <BaseModal
@@ -227,11 +230,14 @@ const AppointmentForm = () => {
             handleClose={handleClose}
             className="var(--color-quarternary)"
           >
-            <ConfirmAppointment
-              onSubmit={handleConfirmAddAppointment}
-              data={formData}
-              isSubmit={isSubmitting}
-            />
+            <UserCard title="Preview Information">
+              <ConfirmAppointment
+                onSubmit={handleConfirmAddAppointment}
+                data={formData}
+                isSubmit={isSubmitting}
+              />
+            </UserCard>
+         
           </BaseModal>
         </div>
       </div>

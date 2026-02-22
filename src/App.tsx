@@ -18,6 +18,7 @@ import Account from './pages/patient/Account';
 import DoctorPage from './pages/doctor/DoctorPage';
 import PendingAppointmentPage from './pages/doctor/PendingAppointmentPage';
 import BookPatientPage from './pages/doctor/BookPatientPage';
+import AccountPage from './pages/doctor/AccountPage';
 
 function App() { 
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path={WEB_ROUTES.ADMIN.DOCTOR_PENDING} element={<PendingAppointmentPage/>}/>
             <Route path={`${WEB_ROUTES.ADMIN.DOCTOR_BOOK_PATIENT}`} element={<BookPatientPage/>} />
             <Route path={`${WEB_ROUTES.ADMIN.DOCTOR_BOOK_PATIENT}/:userId`} element={<BookPatientPage/>} />
+            <Route path = {`${WEB_ROUTES.ADMIN.DOCTOR_ACCOUNTS}`} element={<AccountPage/>}/>
           </Route>
         </Route> 
 

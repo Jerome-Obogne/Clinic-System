@@ -14,7 +14,8 @@ const WEB_ROUTES = {
         DOCTOR: appendPrefix('admin'),
         DOCTOR_REGISTER: appendDocPrefix('register'),
         DOCTOR_PENDING: appendDocPrefix('pending'),
-        DOCTOR_BOOK_PATIENT:appendDocPrefix('book_patient')
+        DOCTOR_BOOK_PATIENT:appendDocPrefix('book_patient'),
+        DOCTOR_ACCOUNTS: appendDocPrefix('accounts')
     },
     PATIENT: {
         DASHBOARD: appendPrefix('patient'),

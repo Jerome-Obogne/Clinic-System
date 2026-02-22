@@ -14,11 +14,6 @@ const ConfirmAppointment = ({ data, onSubmit, isSubmit= false }: AppointmentProp
   return (
     <>
       <div className="" data-testid="ConfirmAppointment">
-        <h1 className="text-white text-base sm:text-sm md:text-[22px] p-7">
-          PREVIEW INFORMATION
-        </h1>
-
-        <div className="bg-white h-auto p-8 rounded-t-[40px] ">
           <div className="mb-5">
             <h2 className="py-2 font-medium text-[var(--color-quarternary)] text-base sm:text-[18px]">
               DATE AND TIME SCHEDULE
@@ -74,7 +69,6 @@ const ConfirmAppointment = ({ data, onSubmit, isSubmit= false }: AppointmentProp
               }
             />
           </div>
-        </div>
       </div>
     </>
   );

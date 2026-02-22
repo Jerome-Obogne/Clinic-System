@@ -47,7 +47,7 @@ const SideBarList = {
     {
       id: 7,
       title: "Accounts",
-      routes: WEB_ROUTES.AUTH.SIGNUP,
+      routes: WEB_ROUTES.ADMIN.DOCTOR_ACCOUNTS,
       icon: <ContactMail />,
     },
   ],
