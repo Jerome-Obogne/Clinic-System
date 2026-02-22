@@ -60,7 +60,7 @@ const AccountForm = () => {
           <div className="flex items-center justify-between flex-wrap">
             <div className="flex items-center gap-4">
               <img
-                src="../logo/Pediatric_Logo_v1.png"
+                src="/logo/Pediatric_Logo_v1.png"
                 alt="Avatar"
                 className="max-w-full w-[80px] h-auto"
               />

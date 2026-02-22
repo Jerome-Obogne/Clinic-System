@@ -79,7 +79,7 @@ const NavBar = ({open,handleDrawer,handleLogout}: NavBarProp) => {
               <div className="mr-52">
                 <Tooltip title={auth?.first_name}>
                   <IconButton sx={{ p: "5px 10px", m: 1,}}>
-                   <ProfileAvatar first_name={auth?.first_name} />
+                   <ProfileAvatar first_name={auth?.first_name}  />
                   </IconButton>
                 </Tooltip>
 

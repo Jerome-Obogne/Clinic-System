@@ -17,6 +17,7 @@ import type { SideBarModel } from '@/model/Sidebar.model';
 import NavBar from './NavBar';
 import { DRAWER_WIDTH } from '@/utils/mockdata';
 import useAuthLogout from '@/hooks/useLogout';
+import ProfileAvatar from '../ui/ProfileAvatar';
 
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -166,7 +167,7 @@ const SideBar = ({ sideBarList ,userType ,children }: SideBarModel) => {
           </List>
           <Divider />
         </Drawer>
-   
+
         {/* <div className="mt-20 p-8 h-full w-full md:max-w-[900px] lg:max-w-full">{children}</div> */}
         <Box
           component="main"

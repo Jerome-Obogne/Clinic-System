@@ -8,10 +8,10 @@ type UserCardProps = {
 const UserCard = ({ title,children }: UserCardProps) => {
   return (
     <div className="bg-[var(--color-quarternary)]!">
-      <h1 className="text-white text-base sm:text-sm md:text-[22px] p-7">
+      <h1 className="text-white text-base sm:text-sm md:text-[22px] p-5">
         {title}
       </h1>
-      <div className="shadow-md bg-white h-auto p-8 rounded-md rounded-t-[40px]">
+      <div className="shadow-md bg-white h-auto p-6 rounded-md rounded-t-[40px]">
         {children}
       </div>
     </div>
