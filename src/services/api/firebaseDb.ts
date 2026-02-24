@@ -4,7 +4,7 @@ import type { AuthError } from "firebase/auth";
 import { addDoc, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
 import { DB } from "./firebaseConfig";
 
-const addProfile = async<T>(dbName:string, data:T) :Promise<ApiResponse<T>> => {
+const addDocuments = async<T>(dbName:string, data:T) :Promise<ApiResponse<T>> => {
     try {
         const colRef = getCollectionRef<T>(dbName);
         const response = await addDoc(colRef, data);
@@ -107,9 +107,4 @@ const getDocuments = async<T>(dbName: string): Promise<ApiResponse<T[]>> =>{
 }
 
 
-export {
-    addProfile,
-    getSingleDoc,
-    getUpdateDoc,
-    getDocuments
-}
+export { addDocuments, getSingleDoc, getUpdateDoc, getDocuments };

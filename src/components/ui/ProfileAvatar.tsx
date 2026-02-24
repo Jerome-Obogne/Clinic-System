@@ -8,7 +8,7 @@ type AvatarProps = {
 const ProfileAvatar = ({first_name,src,size}: AvatarProps) => {
   return (
     <>
-    <Avatar src={src || ""}  sx={{width:size || 45, height:size|| 45}} >
+    <Avatar src={src || ""}  sx={{width:size || 45, height:size || 45}} >
       { src ? src : first_name?.slice(0,1).toUpperCase()}
     </Avatar>
     </>

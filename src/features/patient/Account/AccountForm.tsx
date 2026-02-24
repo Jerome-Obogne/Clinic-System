@@ -29,7 +29,7 @@ const AccountForm = () => {
     const queryRef = query(profileRef, where("user_id", "==" ,auth?.user?.uid) , limit(1));
     
     const getProfileState = onSnapshot(queryRef,(querySnapShot) => {
-      if (querySnapShot.empty){
+      if (querySnapShot.empty) {
         ToastError('There something wrong with the record!');
         return;
       }

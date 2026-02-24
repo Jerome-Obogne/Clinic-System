@@ -19,7 +19,7 @@ import Spinner from '@/components/ui/Spinner';
 import Buttons from "@/components/ui/Buttons"; 
 import { Register, type RegisterModel } from '@/model/Register_Model';
 import { registerUser } from "../../services/api/firebaseAuth";
-import { addProfile } from '../../services/api/firebaseDb';
+import { addDocuments } from "../../services/api/firebaseDb";
 
 
 const RegisterForm = () => {
@@ -46,7 +46,7 @@ const RegisterForm = () => {
         ToastError(`Registration problem try again : ${response.error?.code}`);
         return
       }
-       const addProfileResponse = await addProfile("Profiles", {
+       const addProfileResponse = await addDocuments("Profiles", {
          first_name: data.first_name,
          last_name: data.last_name,
          user_id: response.data?.uid,

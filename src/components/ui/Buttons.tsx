@@ -2,15 +2,15 @@ import Button from '@mui/material/Button'
 import React from 'react'
 
 type BtnProps = {
-    children?: React.ReactNode,
-    className?: string | undefined
-    icon?: React.ReactNode
-    isDisabled?:boolean,
-    size?: 'small' | 'medium' | 'large'
-    variant?: 'text' | 'outlined' | 'contained'
-    type?: 'submit' 
-    onClick?: () => void
-} 
+  children?: React.ReactNode;
+  className?: string | undefined;
+  icon?: React.ReactNode;
+  isDisabled?: boolean;
+  size?: "small" | "medium" | "large";
+  variant?: "text" | "outlined" | "contained";
+  type?: "submit";
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}; 
 
 const Buttons = (props: BtnProps) => {
   return (

@@ -1,3 +1,4 @@
+import Account from "@/pages/patient/Account";
 
 interface AccountModel  { 
   label: string,
@@ -8,7 +9,12 @@ interface Account {
   first_name: string,
   last_name:any,
   email:any,
-  id?:string 
+  id?:string,
+
+}
+interface AccountList  extends Account {
+  user_id:string,
+  role:string
 }
 const accountSchema: Account = {
   first_name: "",
@@ -32,5 +38,5 @@ const AccountsModelSchema: AccountModel[] = [
   },
 ];
 
-export type { AccountModel, Account };
+export type { AccountModel, Account, AccountList };
 export { AccountsModelSchema,accountSchema };

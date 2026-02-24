@@ -16,7 +16,7 @@ import dayjs from 'dayjs';
 import { convertDateTimeString } from '@/utils/utilities';
 import { MuiPhone } from './MuiPhoneInput';
 import useToastMessage from '@/hooks/useToastMessage';
-import { addProfile } from '@/services/api/firebaseDb';
+import { addDocuments } from "@/services/api/firebaseDb";
 import { useAuthContext } from '@/services/state/context/authContext';
 import BaseModal from '@/components/ui/BaseModal';
 import ConfirmAppointment from './ConfirmAppointment';
@@ -58,7 +58,7 @@ const AppointmentForm = () => {
        return;
      }
      setIsSubmitting(true)
-     const { success, error } = await addProfile<parseAppointmentModel>("Appointment", parseRecord.data);
+     const { success, error } = await addDocuments<parseAppointmentModel>("Appointment", parseRecord.data);
      if (!success) {
        ToastError(`${error?.code}`);
        setIsSubmitting(false)

@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Contacts, type ContactModel } from "@/model/Contact.model";
 import ButtonSubmission from "@/components/ui/ButtonSubmission";
 import Buttons from "@/components/ui/Buttons";
-import { addProfile } from "@/services/api/firebaseDb";
+import { addDocuments } from "@/services/api/firebaseDb";
 import useToastMessage from "@/hooks/useToastMessage";
 
 
@@ -23,7 +23,7 @@ const ContactForm = () => {
   }))
 
   const handleAddContact = async(data: ContactModel) =>{
-    const {success,error} = await addProfile<ContactModel>('Concerns',data)
+    const {success,error} = await addDocuments<ContactModel>('Concerns',data)
     if(!success) {
       ToastError(error?.code)
       return;
