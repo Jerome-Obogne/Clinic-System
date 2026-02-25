@@ -1,8 +1,11 @@
-import React from 'react'
+import BookPatient from "@/features/doctor/book_patient/BookPatient"
 
 const BookPatientPage = () => {
   return (
-    <div>BookPatientPage</div>
+    <>
+      <BookPatient/>
+    
+    </>
   )
 }
 
