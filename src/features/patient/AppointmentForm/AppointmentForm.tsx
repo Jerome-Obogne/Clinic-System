@@ -222,7 +222,6 @@ const AppointmentForm = () => {
                 </Buttons>
               </Grid>
 
-              <UserCard title="FOR TESTING PURPOSE" />
             </Grid>
           </form>
           <BaseModal

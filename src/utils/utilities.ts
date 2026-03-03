@@ -13,8 +13,7 @@ const  generateTimeSlots = (startHour = 0, endHour = 23) => {
   const slots = [];
   for (let hour = startHour; hour < endHour; hour++) {
     const start = formatHour(hour);
-    const end = formatHour(hour + 1);
-    slots.push(`${start} - ${end}`);
+    slots.push(`${start}`);
   }
   return slots;
 }

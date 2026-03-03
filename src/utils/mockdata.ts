@@ -1,3 +1,4 @@
+import { generateTimeSlots } from "./utilities";
 
 const subFeatures = [
   {
@@ -37,6 +38,7 @@ const subFeatures = [
   'At least 1 upper case letter (A-Z)',
   'At least 1 lower case letter (A-Z)'
  ]
+ const timeSlot = generateTimeSlots(6, 18);
 
  const DRAWER_WIDTH  = 240; 
 export {
@@ -45,4 +47,5 @@ export {
   registerData,
   DRAWER_WIDTH,
   passwordCheckerList,
+  timeSlot,
 };
