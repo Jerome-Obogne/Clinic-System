@@ -11,7 +11,7 @@ import {
   type parseAppointmentModel,
   postAppointmentSchema,
   defaultAppointment,
-} from "@/model/Appointment.model";
+} from "@/model/appointment.model";
 import dayjs from 'dayjs';
 import { convertDateTimeString } from '@/utils/utilities';
 import { MuiPhone } from './MuiPhoneInput';

@@ -3,7 +3,7 @@ import useToastMessage from "@/hooks/useToastMessage";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "@/services/state/redux/store";
 import { fetchAppointmentListAsync, updateAppointmentAsync } from "@/services/state/redux/slice/appointmentSlice";
-import {  postAppointmentSchema, type parseAppointmentModel } from "@/model/Appointment.model";
+import {  postAppointmentSchema, type parseAppointmentModel } from "@/model/appointment.model";
 import GridTable from "@/components/ui/GridTable";
 import Spinner from "@/components/ui/Spinner";
 import { convertDateTimeString } from "@/utils/utilities";

@@ -2,7 +2,7 @@ import { memo } from "react";
 import {Stack } from "@mui/material";
 import Buttons from "@/components/ui/Buttons";
 import ButtonSubmission from "@/components/ui/ButtonSubmission";
-import type { AppointmentModel } from "@/model/Appointment.model";
+import type { AppointmentModel } from "@/model/temp.model";
 
 type AppointmentProps = {
   data?: AppointmentModel;

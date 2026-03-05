@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Appointment } from './Appointment.model';
+import { Appointment } from './appointment.model';
 
 
 const Contacts= Appointment.pick({

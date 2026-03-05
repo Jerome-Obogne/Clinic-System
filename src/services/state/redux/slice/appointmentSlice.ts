@@ -1,4 +1,4 @@
-import { getAppointmentSchemaArray, type AppointmentModel, type getAppointmentModel, type parseAppointmentModel, } from "@/model/Appointment.model";
+import { getAppointmentSchemaArray, type AppointmentModel, type getAppointmentModel, type parseAppointmentModel, } from "@/model/appointment.model";
 import { getDocuments, getUpdateDoc } from "@/services/api/firebaseDb";
 import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
 

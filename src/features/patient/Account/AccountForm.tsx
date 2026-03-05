@@ -1,7 +1,7 @@
 import Buttons from "@/components/ui/Buttons";
 import AccountField from "./AccountField";
 import { useCallback, useEffect, useState } from "react";
-import { accountSchema, AccountsModelSchema, type Account } from "@/model/Account.model";
+import { accountSchema, AccountsModelSchema, type Account } from "@/model/account.model";
 import { getCollectionRef } from "@/utils/firebaseUtils";
 import {  limit, onSnapshot, query, where } from "firebase/firestore";
 import { useAuthContext } from "@/services/state/context/authContext";

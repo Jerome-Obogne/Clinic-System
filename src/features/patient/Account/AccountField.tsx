@@ -1,5 +1,5 @@
 import Buttons from '@/components/ui/Buttons';
-import type { AccountModel } from '@/model/Account.model';
+import type { AccountModel } from '@/model/account.model';
 import { TextField } from '@mui/material';
 import { memo, useEffect, useState } from 'react'
 

@@ -1,4 +1,4 @@
-import type { AccountList } from "@/model/Account.model";
+import type { AccountList } from "@/model/account.model";
 import { getCollectionRef } from "@/utils/firebaseUtils";
 import { onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react"

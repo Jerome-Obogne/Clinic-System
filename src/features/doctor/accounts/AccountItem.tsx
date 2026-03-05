@@ -5,7 +5,7 @@ import { useCallback,useState,memo } from "react";
 import CustomeMenuItem from '@/components/ui/CustomeMenuItem';
 import Menu from "@mui/material/Menu";
 import Buttons from '@/components/ui/Buttons';
-import type { AccountList } from '@/model/Account.model';
+import type { AccountList } from '@/model/account.model';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { DB } from '@/services/api/firebaseConfig';
 import useToastMessage from '@/hooks/useToastMessage';
