@@ -7,8 +7,8 @@ type CustomDayProps = PickersDayProps & {
 };
 
 type AppointmentProps = {
-  appointmentDates: any;
-  onSubmit: (data: any) => void;
+  appointmentDates?: any;
+  onSubmit?: (data: any) => void;
   records?: any; // this will  identify if edit and add mode
 };
 

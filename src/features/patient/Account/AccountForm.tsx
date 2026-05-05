@@ -14,7 +14,7 @@ const AccountForm = () => {
   const { ToastError } = useToastMessage();
   const auth = useAuthContext();
   const [account, setAccount] = useState<Account>(accountSchema);
- 
+
   const handleSubmit = useCallback(async (fieldName:string | undefined , fieldValue:string) => {
     const record =  {[fieldName as string]: fieldValue} ;
     const { success,error } = await getUpdateDoc("Profiles", account.id , record);
@@ -27,7 +27,7 @@ const AccountForm = () => {
   useEffect(() => {
     const profileRef = getCollectionRef("Profiles");
     const queryRef = query(profileRef, where("user_id", "==" ,auth?.user?.uid) , limit(1));
-    
+
     const getProfileState = onSnapshot(queryRef,(querySnapShot) => {
       if (querySnapShot.empty) {
         ToastError('There something wrong with the record!');
@@ -35,19 +35,20 @@ const AccountForm = () => {
       }
       const { first_name, last_name } = querySnapShot.docs[0].data() as ProfileModel
       const profile_id = querySnapShot.docs[0].id
-      
+
       setAccount({
         email: auth?.user?.email,
         last_name: last_name,
         first_name: first_name,
         id: profile_id
-        })  
-        
+        })
+
        auth?.handleUpdateUser({first_name:first_name})
       });
-        
+
       return () => getProfileState();
   }, []);
+
 
   return (
     <>
@@ -92,7 +93,7 @@ const AccountForm = () => {
           ))}
         </div>
       </div>
-     
+
     </>
   );
 }

@@ -33,20 +33,21 @@ import { DashboardCard } from "./Components";
       },
     },
   ];
-  
+
 const Dashboard = () => {
   const dispatch = useDispatch<AppDispatch>()
   const {data,loading,error} = useSelector((state:RootState)=>  state.appointment,shallowEqual)
- 
+
   const dashBoardRecords = useMemo(() => {
     const actualAppointmentRecords: Record<string, boolean> = {};
-    
+
     const appointmentCount = data.filter((records) => {
-      
+
       const identity = `${records.user_id}-${convertDateTimeString(dayjs(records.date), "MM/DD/YYYY")}`;
       if (actualAppointmentRecords[identity]) return false;
-        actualAppointmentRecords[identity] = true;
-        return true;
+
+      actualAppointmentRecords[identity] = true;
+      return true;
     }).length;
 
     const patientCount = data.filter((record) => !record.user_id,).length;
@@ -68,19 +69,19 @@ const Dashboard = () => {
     return <h1>ERROR</h1>;
   }
   return (
- 
+
       <div className="max-w-full!">
         <Grid container spacing={2} justifyContent={"space-between"}>
           <Grid size={{ xs: 12, sm: 12, md: 6, lg: 6 }}>
-            <DashboardCard 
-              imagePath="./image/wave.svg" 
+            <DashboardCard
+              imagePath="./image/wave.svg"
               value={dashBoardRecords.totalAppointment}
               title="Total Appointment" />
           </Grid>
 
           <Grid size={{ xs: 12, sm: 12, md: 6, lg: 6 }}>
-            <DashboardCard 
-              imagePath="./image/wave_2.svg" 
+            <DashboardCard
+              imagePath="./image/wave_2.svg"
               value={dashBoardRecords.totalPatient}
               title="Total Patients" />
           </Grid>
@@ -91,6 +92,6 @@ const Dashboard = () => {
         </Grid>
       </div>
   );
-} 
+}
 
 export default Dashboard;

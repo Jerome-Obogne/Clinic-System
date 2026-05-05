@@ -50,7 +50,7 @@ const loginUser = async(userData: UserModel): Promise<ApiResponse<User>> => {
     }
 
   } catch (error) {
-     const {code,message} = error as AuthError  
+     const {code,message} = error as AuthError
     return {
       success: false,
       error: {
@@ -66,7 +66,7 @@ const forgotUserPassword = async(email:string) : Promise<ApiResponse<unknown> | 
     await sendPasswordResetEmail(AUTH, email);
     return {
      success:true,
-    } 
+    }
   } catch (error) {
     const {code,message} = error as FirebaseError
        return {
@@ -75,9 +75,9 @@ const forgotUserPassword = async(email:string) : Promise<ApiResponse<unknown> | 
            code: code,
            message: message,
          },
-       }; 
+       };
   }
- 
+
 }
 
 const changeUserPassword = async(auth:User, password:string) : Promise<ApiResponse<User>> =>{
@@ -96,10 +96,10 @@ const changeUserPassword = async(auth:User, password:string) : Promise<ApiRespon
       }
     }
   }
-} 
+}
 
-export { 
-  registerUser, 
-  loginUser, 
-  forgotUserPassword, 
+export {
+  registerUser,
+  loginUser,
+  forgotUserPassword,
   changeUserPassword };

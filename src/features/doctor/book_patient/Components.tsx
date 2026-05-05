@@ -6,7 +6,7 @@ import Buttons from '@/components/ui/Buttons';
 import { timeSlot } from '@/utils/mockdata';
 import { CalendarMonth } from "@mui/icons-material";
 import { MuiPhone } from '@/features/patient/AppointmentForm/MuiPhoneInput';
-import type {  CustomDayProps,InfoItemProps,AppointmentInputProps }  from "@/model/doctor/book-appoinment-model";
+import type {  CustomDayProps,InfoItemProps,AppointmentInputProps, AppointmentProps }  from "@/model/doctor/book-appoinment-model";
 
 
 
@@ -19,24 +19,26 @@ const highlightedDates = [
 
 
 
-export const AppointmentForm = () => {
-  const { control,handleSubmit } = useForm<any>({
+export const AppointmentForm = ({appointmentDates,onSubmit,records}: AppointmentProps) => {
+  
+  console.log(appointmentDates,onSubmit,records)
+  const { control, handleSubmit } = useForm<any>({
     defaultValues: {
       date: null,
       times: [""],
     },
   });
 
-  const onSubmit=(data:any) =>{
-    console.log(data)
-  }
- 
+  const handleOnSubmit = (data: any) => {
+    console.log(data);
+  };
+
   const highlightedSet = useMemo(() => new Set(highlightedDates), []);
 
   return (
     <>
       <div className="max-w-[1200px]!">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(handleOnSubmit)}>
           <Grid
             container
             spacing={2}
@@ -116,7 +118,6 @@ export const AppointmentForm = () => {
                 />
               ))}
             </Grid>
-
           </Grid>
 
           <Grid
@@ -176,13 +177,16 @@ export const AppointmentForm = () => {
                     helperMessage={""}
                   />
                 </FormInput>
-
               </Box>
             </Grid>
 
-            <Grid size={{ xs: 10, sm: 12, md: 6, lg: 5 }} sx={{ alignContent: "center" }}>
-
-              <Typography variant="subtitle1" gutterBottom>Appointment Reason</Typography>
+            <Grid
+              size={{ xs: 10, sm: 12, md: 6, lg: 5 }}
+              sx={{ alignContent: "center" }}
+            >
+              <Typography variant="subtitle1" gutterBottom>
+                Appointment Reason
+              </Typography>
 
               <TextField
                 data-testid="concerns_outline"
@@ -194,7 +198,6 @@ export const AppointmentForm = () => {
                 rows={5}
               />
               <Box sx={{ m: 2, gap: 2, display: "flex", flexWrap: "wrap" }}>
-
                 <Buttons
                   type="submit"
                   className="!p-[8px] normal-case! w-full md:w-[310px] bg-[color:var(--color-quarternary)]! hover:text-white! text-white!"
@@ -208,17 +211,14 @@ export const AppointmentForm = () => {
                 >
                   Cancel
                 </Buttons>
-
               </Box>
-
             </Grid>
-
           </Grid>
         </form>
       </div>
     </>
   );
-}
+};
 
 
 
